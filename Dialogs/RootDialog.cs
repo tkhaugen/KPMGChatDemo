@@ -29,14 +29,14 @@ namespace SimpleEchoBot.Dialogs
         {
             PromptDialog.Choice(
                 context,
-                this.ChosenAsync,
+                ProcessChoice,
                 new string[] { _resource, _industry, _service },
                 Resources.InitialQuestion,
                 Resources.SorryChoose,
                 3);
         }
 
-        private async Task ChosenAsync(IDialogContext context, IAwaitable<string> result)
+        private async Task ProcessChoice(IDialogContext context, IAwaitable<string> result)
         {
             var chosen = await result;
 
@@ -47,7 +47,7 @@ namespace SimpleEchoBot.Dialogs
                     PromtQuestion(context);
                     break;
                 case _industry:
-                    await context.Forward(new IndustryDialog(), this.ResumeAfterDialog, chosen, CancellationToken.None);
+                    await context.Forward(new IndustryDialog(), ResumeAfterDialog, chosen, CancellationToken.None);
                     break;
                 case _service:
                     await context.PostAsync(Resources.NotImplemented);

@@ -20,15 +20,20 @@ namespace Microsoft.Bot.Sample.SimpleEchoBot
         [ResponseType(typeof(void))]
         public virtual async Task<HttpResponseMessage> Post([FromBody] Activity activity)
         {
+            if (activity == null)
+                return new HttpResponseMessage(System.Net.HttpStatusCode.BadRequest);
+
             // check if activity is of type message
-            if (activity != null && activity.GetActivityType() == ActivityTypes.Message)
+            if (activity.Type == ActivityTypes.Message)
             {
-                await Conversation.SendAsync(activity, () => new RootDialog());
+                var dialog = new RootLuisDialog();
+                await Conversation.SendAsync(activity, () => dialog);
             }
             else
             {
                 HandleSystemMessage(activity);
             }
+
             return new HttpResponseMessage(System.Net.HttpStatusCode.Accepted);
         }
 
