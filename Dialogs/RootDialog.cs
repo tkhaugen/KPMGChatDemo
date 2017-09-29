@@ -21,23 +21,10 @@ namespace SimpleEchoBot.Dialogs
 
         private Task MessageReceivedAsync(IDialogContext context, IAwaitable<object> result)
         {
-            Dude(context);
-            //PromtQuestion(context);
+            PromtQuestion(context);
 
             return Task.CompletedTask;
         }
-
-        private void Dude(IDialogContext context)
-        {
-            var cvp = new CVPartnerService();
-            var industries = cvp.GetIndustries().GetAwaiter().GetResult();
-            foreach (var industry in industries)
-                context.PostAsync(industry).GetAwaiter().GetResult();
-        }
-
-
-
-
 
         private void PromtQuestion(IDialogContext context)
         {

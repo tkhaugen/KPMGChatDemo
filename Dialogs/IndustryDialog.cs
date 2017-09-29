@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Net.Http;
 using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.Bot.Builder.Dialogs;
@@ -29,7 +28,7 @@ namespace SimpleEchoBot.Dialogs
 
             PromptDialog.Choice(
                 context,
-                this.ChosenAsync,
+                ChosenAsync,
                 industries,
                 Resources.IndustryQuestion,
                 Resources.SorryChoose,
@@ -74,6 +73,5 @@ namespace SimpleEchoBot.Dialogs
         {
             context.Done(string.Empty);
         }
-
     }
 }

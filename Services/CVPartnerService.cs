@@ -32,80 +32,56 @@ namespace SimpleEchoBot.Services
 
         public async Task<string[]> GetIndustries()
         {
-            try
-            {
-                var request = new HttpRequestMessage()
-                {
-                    RequestUri = new Uri(_baseUri + "/api/v1/unapproved/int/project_experiences/industry?limit=50&offset=0"),
-                    Method = HttpMethod.Get,
-                };
-                request.Headers.Authorization = new AuthenticationHeaderValue("Token", _authToken);
-                var response = await _client.SendAsync(request);
-                if (response != null)
-                {
-                    var industriesResponse = JsonConvert.DeserializeObject<IndustriesResponse>(await response.Content.ReadAsStringAsync());
-                    return industriesResponse.Wrapper.Terms.Select(t => t.Term).ToArray();
-                }
-                return null;
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
+            var result = await SendRequest("/api/v1/unapproved/int/project_experiences/industry?limit=50&offset=0");
+            var industriesResponse = JsonConvert.DeserializeObject<IndustriesResponse>(result);
+            return industriesResponse.Wrapper.Terms.Select(t => t.Term).ToArray();
         }
 
         public async Task<IEnumerable<CV>> GetCVs(string industry)
         {
-            var officeIdsString = string.Empty;
             var officeIds = await GetOfficeIds();
 
+            var officeIdsString = string.Empty;
             foreach (var id in officeIds)
             {
                 officeIdsString += "&office_ids[]=" + id;
             }
+            var path = "/api/v3/search?query[0]=" + industry + "&filter_fields[0]=" + officeIdsString + "&size=4&from=0";
 
-            var request = new HttpRequestMessage()
-            {
-                RequestUri = new Uri(_baseUri + "/api/v3/search?query[0]=" + industry + "&filter_fields[0]=" + officeIdsString + "&size=4&from=0"),
-                Method = HttpMethod.Get,
-            };
-            request.Headers.Authorization = new AuthenticationHeaderValue("Token", ConfigurationManager.AppSettings["CVPartnerKey"].ToString());
-
-            var response = await _client.SendAsync(request);
-
-            if (response != null)
-            {
-                var consultantsResponse = JsonConvert.DeserializeObject<ConsultantsResponse>(await response.Content.ReadAsStringAsync());
-                return consultantsResponse.Cvs.Select(c => c.CV);
-            }
-
-            return null;
+            var result = await SendRequest(path);
+            var consultantsResponse = JsonConvert.DeserializeObject<ConsultantsResponse>(result);
+            return consultantsResponse.Cvs.Select(c => c.CV);
         }
 
         public async Task<IList<string>> GetOfficeIds()
         {
+            var result = await SendRequest("/api/v1/countries");
+            var countriesResponse = JsonConvert.DeserializeObject<List<CountriesResponse>>(result);
+
+            var guids = new List<string>();
+            foreach (var country in countriesResponse)
+            {
+                guids.AddRange(country.Offices.Select(o => o.Id));
+            }
+
+            return guids;
+        }
+
+        private async Task<string> SendRequest(string path)
+        {
             var request = new HttpRequestMessage()
             {
-                //TODO: Dont hardcode office_ids or baseurl
-                RequestUri = new Uri(_baseUri + "/api/v1/countries"),
+                RequestUri = new Uri(_baseUri + path),
                 Method = HttpMethod.Get,
             };
-            request.Headers.Authorization = new AuthenticationHeaderValue("Token", ConfigurationManager.AppSettings["CVPartnerKey"].ToString());
+            request.Headers.Authorization = new AuthenticationHeaderValue("Token", _authToken);
 
-            var response = await _client.SendAsync(request);
-
-            if (response != null)
+            using (var response = await _client.SendAsync(request).ConfigureAwait(false))
             {
-                var countriesResponse = JsonConvert.DeserializeObject<List<CountriesResponse>>(await response.Content.ReadAsStringAsync());
-
-                var guids = new List<string>();
-                foreach (var country in countriesResponse)
+                if (response != null)
                 {
-                    guids.AddRange(country.Offices.Select(o => o.Id));
+                    return await response.Content.ReadAsStringAsync();
                 }
-
-                return guids;
-
             }
 
             return null;
