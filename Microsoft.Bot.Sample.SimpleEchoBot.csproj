@@ -135,6 +135,7 @@
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\MessagesController.cs" />
     <Compile Include="Dialogs\ContactDialog.cs" />
+    <Compile Include="Dialogs\DemoLuisDialog.cs" />
     <Compile Include="Dialogs\EchoDialog.cs" />
     <Compile Include="Dialogs\IndustryDialog.cs" />
     <Compile Include="Dialogs\RootDialog.cs" />
@@ -153,6 +154,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <Compile Include="Services\CVPartnerService.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />

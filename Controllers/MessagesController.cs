@@ -1,6 +1,5 @@
 using System.Threading.Tasks;
 using System.Web.Http;
-
 using Microsoft.Bot.Connector;
 using Microsoft.Bot.Builder.Dialogs;
 using System.Web.Http.Description;
@@ -26,7 +25,7 @@ namespace Microsoft.Bot.Sample.SimpleEchoBot
             // check if activity is of type message
             if (activity.Type == ActivityTypes.Message)
             {
-                var dialog = new RootLuisDialog();
+                var dialog = new RootDialog();
                 await Conversation.SendAsync(activity, () => dialog);
             }
             else

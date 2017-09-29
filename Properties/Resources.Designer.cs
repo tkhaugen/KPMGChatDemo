@@ -61,6 +61,15 @@ namespace SimpleEchoBot.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Beklager, jeg forstår ikke helt hva du mener..
+        /// </summary>
+        internal static string CannotUnderstand {
+            get {
+                return ResourceManager.GetString("CannotUnderstand", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Bli kontaktet.
         /// </summary>
         internal static string ContactMe {
@@ -124,7 +133,7 @@ namespace SimpleEchoBot.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Heisann, jeg er KPMGs automatiske meldingstjeneste. Hvis du velger det området henvendelsen gjelder under, så skal jeg hjelpe deg videre..
+        ///   Looks up a localized string similar to Hei, jeg er KPMGs automatiske meldingstjeneste. Hvis du velger det området henvendelsen gjelder under, så skal jeg hjelpe deg videre..
         /// </summary>
         internal static string InitialQuestion {
             get {
