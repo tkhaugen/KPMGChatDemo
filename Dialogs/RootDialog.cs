@@ -19,14 +19,13 @@ namespace SimpleEchoBot.Dialogs
             context.Wait(MessageReceivedAsync);
         }
 
-        private Task MessageReceivedAsync(IDialogContext context, IAwaitable<object> result)
+        private async Task MessageReceivedAsync(IDialogContext context, IAwaitable<object> result)
         {
-            PromtQuestion(context);
-
-            return Task.CompletedTask;
+            PromptQuestion(context);
+            return;
         }
 
-        private void PromtQuestion(IDialogContext context)
+        private void PromptQuestion(IDialogContext context)
         {
             PromptDialog.Choice(
                 context,
@@ -45,14 +44,14 @@ namespace SimpleEchoBot.Dialogs
             {
                 case _resource:
                     await context.PostAsync(Resources.NotImplemented);
-                    PromtQuestion(context);
+                    PromptQuestion(context);
                     break;
                 case _industry:
                     await context.Forward(new IndustryDialog(), ResumeAfterDialog, chosen, CancellationToken.None);
                     break;
                 case _service:
                     await context.PostAsync(Resources.NotImplemented);
-                    PromtQuestion(context);
+                    PromptQuestion(context);
                     break;
                 default:
                     context.Wait(MessageReceivedAsync);
@@ -60,10 +59,10 @@ namespace SimpleEchoBot.Dialogs
             }
         }
 
-        private Task ResumeAfterDialog(IDialogContext context, IAwaitable<object> result)
+        private async Task ResumeAfterDialog(IDialogContext context, IAwaitable<object> result)
         {
-            context.PostAsync($"Håper du fikk svar på det du lurte på!");
-            return Task.CompletedTask;
+            await context.PostAsync($"Håper du fikk svar på det du lurte på!");
+            context.Wait(MessageReceivedAsync);
         }
     }
 }

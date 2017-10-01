@@ -14,36 +14,34 @@ namespace SimpleEchoBot.Dialogs
     [Serializable]
     public class IndustryDialog : IDialog<object>
     {
-        ICVPartnerService _cvPartnerService = new CVPartnerService();
-
         public async Task StartAsync(IDialogContext context)
         {
             await context.PostAsync(Resources.IndustryChosen);
+
             context.Wait(PromptChoices);
         }
 
         private async Task PromptChoices(IDialogContext context, IAwaitable<object> result)
         {
-            var industries = await _cvPartnerService.GetIndustries();
-
+            var industries = await CVPartnerService.Instance.GetIndustries();
             PromptDialog.Choice(
                 context,
-                ChosenAsync,
+                ProcessChoice,
                 industries,
                 Resources.IndustryQuestion,
                 Resources.SorryChoose,
                 3);
         }
 
-        private async Task ChosenAsync(IDialogContext context, IAwaitable<string> result)
+        private async Task ProcessChoice(IDialogContext context, IAwaitable<string> result)
         {
             var chosen = await result;
-            var cvs = await _cvPartnerService.GetCVs(chosen);
+            var cvs = await CVPartnerService.Instance.GetCVs(chosen);
             var cv = cvs.First(); //TODO: Find consultant with the most experience or other logic
 
             await PostCVThumbnailCard(context, chosen, cv);
 
-            await context.Forward(new ContactDialog(), this.ResumeAfterDialog, cv, CancellationToken.None);
+            await context.Forward(new ContactDialog(), ResumeAfterDialog, cv, CancellationToken.None);
         }
 
         private static async Task PostCVThumbnailCard(IDialogContext context, string chosen, CV cv)

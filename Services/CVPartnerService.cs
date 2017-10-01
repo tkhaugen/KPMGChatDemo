@@ -19,9 +19,23 @@ namespace SimpleEchoBot.Services
 
     public class CVPartnerService : ICVPartnerService
     {
+        private static ICVPartnerService _instance;
+
         private HttpClient _client;
         private string _baseUri;
         private string _authToken;
+
+        public static ICVPartnerService Instance
+        {
+            get
+            {
+                if (_instance == null)
+                {
+                    _instance = new CVPartnerService();
+                }
+                return _instance;
+            }
+        }
 
         public CVPartnerService()
         {
@@ -32,7 +46,7 @@ namespace SimpleEchoBot.Services
 
         public async Task<string[]> GetIndustries()
         {
-            var result = await SendRequest("/api/v1/unapproved/int/project_experiences/industry?limit=50&offset=0");
+            var result = await SendRequest("/api/v1/unapproved/int/project_experiences/industry?limit=50&offset=0").ConfigureAwait(false);
             var industriesResponse = JsonConvert.DeserializeObject<IndustriesResponse>(result);
             return industriesResponse.Wrapper.Terms.Select(t => t.Term).ToArray();
         }
