@@ -2,7 +2,6 @@
 using System.Threading.Tasks;
 using System.Net.Http;
 using Newtonsoft.Json;
-using SimpleEchoBot.Models;
 using System.Net.Http.Headers;
 using System.Linq;
 using System.Collections.Generic;
@@ -10,6 +9,8 @@ using System.Configuration;
 
 namespace SimpleEchoBot.Services
 {
+    using Models.CVPartner;
+
     public interface ICVPartnerService
     {
         Task<string[]> GetIndustries();

@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace SimpleEchoBot.Models
+namespace SimpleEchoBot.Models.CVPartner
 {
     public class ConsultantsResponse
     {

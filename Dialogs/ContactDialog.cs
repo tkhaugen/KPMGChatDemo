@@ -3,11 +3,12 @@ using System.Threading.Tasks;
 using Microsoft.Bot.Builder.Dialogs;
 using SimpleEchoBot.Properties;
 using System.Collections.Generic;
-using SimpleEchoBot.Models;
 using Microsoft.Bot.Connector;
 
 namespace SimpleEchoBot.Dialogs
 {
+    using Models.CVPartner;
+
     [Serializable]
     public class ContactDialog : IDialog<object>
     {

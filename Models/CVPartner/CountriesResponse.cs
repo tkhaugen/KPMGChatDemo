@@ -1,7 +1,7 @@
 ﻿using Newtonsoft.Json;
 using System.Collections.Generic;
 
-namespace SimpleEchoBot.Models
+namespace SimpleEchoBot.Models.CVPartner
 {
     public class CountriesResponse
     {

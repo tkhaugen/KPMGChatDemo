@@ -5,12 +5,13 @@ using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.Bot.Builder.Dialogs;
 using Microsoft.Bot.Connector;
-using SimpleEchoBot.Models;
-using SimpleEchoBot.Properties;
-using SimpleEchoBot.Services;
 
 namespace SimpleEchoBot.Dialogs
 {
+    using Models.CVPartner;
+    using Properties;
+    using Services;
+
     [Serializable]
     public class IndustryDialog : IDialog<object>
     {
@@ -23,11 +24,11 @@ namespace SimpleEchoBot.Dialogs
 
         private async Task PromptChoices(IDialogContext context, IAwaitable<object> result)
         {
-            var industries = await CVPartnerService.Instance.GetIndustries();
+            var configuredIndustries = await IndustryConfiguration.GetConfiguredIndustries();
             PromptDialog.Choice(
                 context,
                 ProcessChoice,
-                industries,
+                configuredIndustries.Industries.Select(ci => ci.Name),
                 Resources.IndustryQuestion,
                 Resources.SorryChoose,
                 3);

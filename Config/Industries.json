@@ -1,5 +1,141 @@
 ﻿{
-  /*
+  "Industries": [
+    {
+      "Name": "Bank, finans og forsikring",
+      "Variants": [
+        "Bank, finans og forsikring",
+        "Banking",
+        "Banking/Financial Services",
+        "Finance",
+        "Financial services",
+        "Financial Services"
+      ]
+    },
+    {
+      "Name": "Energi",
+      "Variants": [
+        "Energi",
+        "Energy",
+        "Power & Utilities"
+      ]
+    },
+    {
+      "Name": "Helse",
+      "Variants": [
+        "Helse",
+        "eHealth",
+        "Health Care",
+        "Health sector",
+        "Healthcare",
+        "Healthcare, public/private cooperation"
+      ]
+    },
+    {
+      "Name": "Olje og gass",
+      "Variants": [
+        "Olje og gass",
+        "Oil & gas",
+        "Oil & Gas",
+        "Oil and gas",
+        "Oil and Gas"
+      ]
+    },
+    {
+      "Name": "Sjømat",
+      "Variants": [
+        "Sjømat",
+        "Food and drinks industry"
+      ]
+    },
+    {
+      "Name": "Bil",
+      "Variants": [
+        "Bil",
+        "Car industry"
+      ]
+    },
+    {
+      "Name": "Handel og konsumvarer",
+      "Variants": [
+        "Handel og konsumvarer",
+        "Retail",
+        "Retail and wholesale trade"
+      ]
+    },
+    {
+      "Name": "Offentlig sektor",
+      "Variants": [
+        "Offentlig sektor",
+        "Governmental / Public",
+        "Local government / public",
+        "Public",
+        "Public sector",
+        "Civil society",
+        "Development Aid",
+        "Statlig/offentlig"
+      ]
+    },
+    {
+      "Name": "Industri",
+      "Variants": [
+        "Industri",
+        "Industrial products",
+        "Defence",
+        "Defense",
+        "Electronics manufacturing",
+        "Engineering Consultancy",
+        "Mineral/mining",
+        "Service industry"
+      ]
+    },
+    {
+      "Name": "Teknologi, media og telekommunikasjon",
+      "Variants": [
+        "Teknologi, media og telekommunikasjon",
+        "IT & telecom",
+        "Media",
+        "Telecom",
+        "Telecommunications",
+        "Advertising/PR"
+      ]
+    },
+    {
+      "Name": "Transport og logistikk",
+      "Variants": [
+        "Transport og logistikk",
+        "Transportation and logistics",
+        "Air transport",
+        "Public, Transportation"
+      ]
+    },
+    {
+      "Name": "Bygg, anlegg og eiendom",
+      "Variants": [
+        "Bygg, anlegg og eiendom",
+        "Building & construction",
+        "Building and Construction Industry",
+        "Construction",
+        "Real estate"
+      ]
+    },
+    {
+      "Name": "Private Equity",
+      "Variants": [
+        "Private Equity",
+        "Privat",
+        "Private",
+        "NGO"
+      ]
+    },
+    {
+      "Name": "Shipping",
+      "Variants": [
+        "Shipping"
+      ]
+    }
+  ]
+}
+/*
 Advertising/PR
 Air transport
 Banking
@@ -51,4 +187,3 @@ Telecom
 Telecommunications
 Transportation and logistics
 */
-}
