@@ -43,8 +43,7 @@ namespace SimpleEchoBot.Dialogs
             switch (chosen)
             {
                 case _resource:
-                    await context.PostAsync(Resources.NotImplemented);
-                    PromptQuestion(context);
+                    context.Call(new FindContactDialog(), ResumeAfterDialog);
                     break;
                 case _industry:
                     await context.Forward(new IndustryDialog(), ResumeAfterDialog, chosen, CancellationToken.None);

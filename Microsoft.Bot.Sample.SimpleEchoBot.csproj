@@ -137,6 +137,7 @@
     <Compile Include="Dialogs\ContactDialog.cs" />
     <Compile Include="Dialogs\DemoLuisDialog.cs" />
     <Compile Include="Dialogs\EchoDialog.cs" />
+    <Compile Include="Dialogs\FindContactDialog.cs" />
     <Compile Include="Dialogs\ServiceDialog.cs" />
     <Compile Include="Dialogs\IndustryDialog.cs" />
     <Compile Include="Dialogs\RootDialog.cs" />

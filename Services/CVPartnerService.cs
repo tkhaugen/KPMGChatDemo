@@ -20,6 +20,7 @@ namespace SimpleEchoBot.Services
         Task<IList<Office>> GetOffices(string countryCode);
         Task<User> FindContactForIndustry(string industry);
         Task<User> FindContactForService(string service);
+        Task<IList<User>> FindContactByName(string name);
         Task<User> GetUser(string email);
     }
 
@@ -140,6 +141,44 @@ namespace SimpleEchoBot.Services
             var cvs = await FindCVsForService(service);
             var cv = cvs.FirstOrDefault();
             return await GetUser(cv.Email);
+        }
+
+        public async Task<IList<CV>> FindCVsForName(string industry)
+        {
+            // Get all offices in Norway
+            var offices = await GetOffices("no");
+
+            // Office search string
+            var officeIdsString = offices.Aggregate("", (s, o) => s + "&office_ids[]=" + o.Id); // sic!
+
+            var cvs = new List<CV>();
+            var path = "/api/v3/search?query[0]=" + industry + "&filter_fields[0]=" + officeIdsString + "&size=4&from=0";
+            var result = await SendRequest(path);
+            var consultantsResponse = JsonConvert.DeserializeObject<ConsultantsResponse>(result);
+            foreach (var cvWrapper in consultantsResponse.Cvs)
+            {
+                var cv = cvWrapper.CV;
+                cvs.Add(cv);
+            }
+
+            return cvs.ToList();
+        }
+
+        public async Task<IList<User>> FindContactByName(string name)
+        {
+            var cvs = await FindCVsForName(name);
+            var users = new List<User>();
+
+            foreach(var cv in cvs.Where(x => !string.IsNullOrEmpty(x.Email)))
+            {
+                var user = await GetUser(cv.Email);
+                if (user != null)
+                {
+                    users.Add(user);
+                }
+            }
+
+            return users;
         }
 
         public async Task<User> GetUser(string email)
