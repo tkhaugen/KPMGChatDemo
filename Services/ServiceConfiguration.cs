@@ -12,23 +12,23 @@ namespace SimpleEchoBot.Services
     using System.Configuration;
     using Models.Configuration;
 
-    public class IndustryConfiguration
+    public class ServiceConfiguration
     {
-        private static ConfiguredIndustries _configuredIndustries;
+        private static ConfiguredServices _configuredServices;
 
-        public static async Task<ConfiguredIndustries> GetConfiguredIndustries()
+        public static async Task<ConfiguredServices> GetConfiguredServices()
         {
-            if (_configuredIndustries != null)
-                return _configuredIndustries;
+            if (_configuredServices != null)
+                return _configuredServices;
 
-            var json = await ReadFileAsync("~/Config/Industries.json");
-            var configuredIndustries = await Task.Factory.StartNew(() => JsonConvert.DeserializeObject<ConfiguredIndustries>(json));
-            return configuredIndustries;
+            var json = await ReadFileAsync("~/Config/Services.json");
+            var configuredServices = await Task.Factory.StartNew(() => JsonConvert.DeserializeObject<ConfiguredServices>(json));
+            return configuredServices;
         }
 
         public static string[] GetPreferredRoles()
         {
-            return ConfigurationManager.AppSettings["Industry_PreferredRoles"].Split(',');
+            return ConfigurationManager.AppSettings["Service_PreferredRoles"].Split(',');
         }
 
         private static async Task<string> ReadFileAsync(string virtualPath)

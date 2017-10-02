@@ -97,6 +97,15 @@ namespace SimpleEchoBot.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Flott. Kontaktdetaljene ser du i kortet over..
+        /// </summary>
+        internal static string IllContactResponse {
+            get {
+                return ResourceManager.GetString("IllContactResponse", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Bransje.
         /// </summary>
         internal static string Industry {
@@ -115,7 +124,7 @@ namespace SimpleEchoBot.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to {0} er en bransje under stort effektiviseringspress om dagen. Jeg foreslår at vi setter deg i kontakt med {1}, som er partner og ekspert på området..
+        ///   Looks up a localized string similar to {0} er en bransje under stort effektiviseringspress om dagen. Jeg foreslår at vi setter deg i kontakt med {1}, som ekspert på området..
         /// </summary>
         internal static string IndustryChosen2 {
             get {
@@ -124,7 +133,7 @@ namespace SimpleEchoBot.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Velg hvilken sektor du er interessert i under. Så skal vi hjelpe deg videre..
+        ///   Looks up a localized string similar to Velg hvilken sektor du er interessert i under, så skal vi hjelpe deg videre..
         /// </summary>
         internal static string IndustryQuestion {
             get {
@@ -169,11 +178,47 @@ namespace SimpleEchoBot.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Flott! KPMG tilbyr tjenester innenfor en rekke områder..
+        /// </summary>
+        internal static string ServiceChosen {
+            get {
+                return ResourceManager.GetString("ServiceChosen", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {0} er et av KPMGs tjenesteområder. Jeg foreslår at vi setter deg i kontakt med {1}, som ekspert på området..
+        /// </summary>
+        internal static string ServiceChosen2 {
+            get {
+                return ResourceManager.GetString("ServiceChosen2", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Velg hvilket tjenesteområde du er interessert i under..
+        /// </summary>
+        internal static string ServiceQuestion {
+            get {
+                return ResourceManager.GetString("ServiceQuestion", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Jeg kan desverre bare svare på spørsmålet over foreløpig. Vennligst velg et av alternativene..
         /// </summary>
         internal static string SorryChoose {
             get {
                 return ResourceManager.GetString("SorryChoose", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Flott. Vår medarbeider vil ta kontakt så snart som mulig..
+        /// </summary>
+        internal static string YouWillBeContacted {
+            get {
+                return ResourceManager.GetString("YouWillBeContacted", resourceCulture);
             }
         }
     }

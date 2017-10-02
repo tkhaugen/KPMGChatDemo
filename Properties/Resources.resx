@@ -129,6 +129,9 @@
   <data name="IllContact" xml:space="preserve">
     <value>Ta kontakt</value>
   </data>
+  <data name="IllContactResponse" xml:space="preserve">
+    <value>Flott. Kontaktdetaljene ser du i kortet over.</value>
+  </data>
   <data name="Industry" xml:space="preserve">
     <value>Bransje</value>
   </data>
@@ -136,10 +139,10 @@
     <value>Flott! KPMG har god innsikt i hvilke særskilte utfordringer de ulike bransjene står ovenfor. Håper du kan ha nytte av vår bransjeinnsikt.</value>
   </data>
   <data name="IndustryChosen2" xml:space="preserve">
-    <value>{0} er en bransje under stort effektiviseringspress om dagen. Jeg foreslår at vi setter deg i kontakt med {1}, som er partner og ekspert på området.</value>
+    <value>{0} er en bransje under stort effektiviseringspress om dagen. Jeg foreslår at vi setter deg i kontakt med {1}, som ekspert på området.</value>
   </data>
   <data name="IndustryQuestion" xml:space="preserve">
-    <value>Velg hvilken sektor du er interessert i under. Så skal vi hjelpe deg videre.</value>
+    <value>Velg hvilken sektor du er interessert i under, så skal vi hjelpe deg videre.</value>
   </data>
   <data name="InitialQuestion" xml:space="preserve">
     <value>Hei, jeg er KPMGs automatiske meldingstjeneste. Hvis du velger det området henvendelsen gjelder under, så skal jeg hjelpe deg videre.</value>
@@ -153,7 +156,19 @@
   <data name="Service" xml:space="preserve">
     <value>Tjeneste</value>
   </data>
+  <data name="ServiceChosen" xml:space="preserve">
+    <value>Flott! KPMG tilbyr tjenester innenfor en rekke områder.</value>
+  </data>
+  <data name="ServiceChosen2" xml:space="preserve">
+    <value>{0} er et av KPMGs tjenesteområder. Jeg foreslår at vi setter deg i kontakt med {1}, som ekspert på området.</value>
+  </data>
+  <data name="ServiceQuestion" xml:space="preserve">
+    <value>Velg hvilket tjenesteområde du er interessert i under.</value>
+  </data>
   <data name="SorryChoose" xml:space="preserve">
     <value>Jeg kan desverre bare svare på spørsmålet over foreløpig. Vennligst velg et av alternativene.</value>
+  </data>
+  <data name="YouWillBeContacted" xml:space="preserve">
+    <value>Flott. Vår medarbeider vil ta kontakt så snart som mulig.</value>
   </data>
 </root>

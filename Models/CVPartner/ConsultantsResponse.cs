@@ -11,6 +11,7 @@ namespace SimpleEchoBot.Models.CVPartner
     {
         public CV CV { get; set; }
     }
+
     public class CV
     {
         public string Name { get; set; }
@@ -18,16 +19,5 @@ namespace SimpleEchoBot.Models.CVPartner
         public string Telephone { get; set; }
         public string Email { get; set; }
         public Image Image { get; set; }
-    }
-
-    public class Image
-    {
-        public ImageUrl Thumb { get; set; }
-        public ImageUrl Small_thumb { get; set; }
-    }
-
-    public class ImageUrl
-    {
-        public string Url { get; set; }
     }
 }

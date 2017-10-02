@@ -1,8 +1,8 @@
 ﻿{
-  "Industries": [
+  "industries": [
     {
-      "Name": "Bank, finans og forsikring",
-      "Variants": [
+      "name": "Bank, finans og forsikring",
+      "variants": [
         "Bank, finans og forsikring",
         "Banking",
         "Banking/Financial Services",
@@ -12,16 +12,16 @@
       ]
     },
     {
-      "Name": "Energi",
-      "Variants": [
+      "name": "Energi",
+      "variants": [
         "Energi",
         "Energy",
         "Power & Utilities"
       ]
     },
     {
-      "Name": "Helse",
-      "Variants": [
+      "name": "Helse",
+      "variants": [
         "Helse",
         "eHealth",
         "Health Care",
@@ -31,8 +31,8 @@
       ]
     },
     {
-      "Name": "Olje og gass",
-      "Variants": [
+      "name": "Olje og gass",
+      "variants": [
         "Olje og gass",
         "Oil & gas",
         "Oil & Gas",
@@ -41,30 +41,30 @@
       ]
     },
     {
-      "Name": "Sjømat",
-      "Variants": [
+      "name": "Sjømat",
+      "variants": [
         "Sjømat",
         "Food and drinks industry"
       ]
     },
     {
-      "Name": "Bil",
-      "Variants": [
+      "name": "Bil",
+      "variants": [
         "Bil",
         "Car industry"
       ]
     },
     {
-      "Name": "Handel og konsumvarer",
-      "Variants": [
+      "name": "Handel og konsumvarer",
+      "variants": [
         "Handel og konsumvarer",
         "Retail",
         "Retail and wholesale trade"
       ]
     },
     {
-      "Name": "Offentlig sektor",
-      "Variants": [
+      "name": "Offentlig sektor",
+      "variants": [
         "Offentlig sektor",
         "Governmental / Public",
         "Local government / public",
@@ -76,8 +76,8 @@
       ]
     },
     {
-      "Name": "Industri",
-      "Variants": [
+      "name": "Industri",
+      "variants": [
         "Industri",
         "Industrial products",
         "Defence",
@@ -89,8 +89,8 @@
       ]
     },
     {
-      "Name": "Teknologi, media og telekommunikasjon",
-      "Variants": [
+      "name": "Teknologi, media og telekommunikasjon",
+      "variants": [
         "Teknologi, media og telekommunikasjon",
         "IT & telecom",
         "Media",
@@ -100,8 +100,8 @@
       ]
     },
     {
-      "Name": "Transport og logistikk",
-      "Variants": [
+      "name": "Transport og logistikk",
+      "variants": [
         "Transport og logistikk",
         "Transportation and logistics",
         "Air transport",
@@ -109,8 +109,8 @@
       ]
     },
     {
-      "Name": "Bygg, anlegg og eiendom",
-      "Variants": [
+      "name": "Bygg, anlegg og eiendom",
+      "variants": [
         "Bygg, anlegg og eiendom",
         "Building & construction",
         "Building and Construction Industry",
@@ -119,8 +119,8 @@
       ]
     },
     {
-      "Name": "Private Equity",
-      "Variants": [
+      "name": "Private Equity",
+      "variants": [
         "Private Equity",
         "Privat",
         "Private",
@@ -128,8 +128,8 @@
       ]
     },
     {
-      "Name": "Shipping",
-      "Variants": [
+      "name": "Shipping",
+      "variants": [
         "Shipping"
       ]
     }

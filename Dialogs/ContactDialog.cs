@@ -14,20 +14,20 @@ namespace SimpleEchoBot.Dialogs
     {
         public async Task StartAsync(IDialogContext context)
         {
-            context.Wait<CV>(this.PromptChoices);
+            context.Wait<User>(PromptChoices);
         }
 
-        private async Task PromptChoices(IDialogContext context, IAwaitable<CV> result)
+        private async Task PromptChoices(IDialogContext context, IAwaitable<User> result)
         {
             try
             {
-                var cv = await result;
+                var user = await result;
 
                 PromptDialog.Choice(
                     context,
-                    this.ChosenAsync,
+                    ProcessChoiceAsync,
                     new string[] { Resources.ContactMe, Resources.IllContact },
-                    string.Format(Resources.ContactQuestion, cv.Name),
+                    string.Format(Resources.ContactQuestion, user.Name),
                     Resources.SorryChoose,
                     3);
             }
@@ -37,29 +37,31 @@ namespace SimpleEchoBot.Dialogs
             }
         }
 
-        private async Task ChosenAsync(IDialogContext context, IAwaitable<object> result)
+        private async Task ProcessChoiceAsync(IDialogContext context, IAwaitable<object> result)
         {
             try
             {
                 var chosen = await result;
 
-                var actions = new Dictionary<string, Action> {
-                                { Resources.ContactMe, async() => await ContactMe(context) },
-                                { Resources.IllContact, async() => await IllContact(context) },
-                            };
+                var actions = new Dictionary<string, Action>
+                {
+                    { Resources.ContactMe, async () => await ContactMe(context) },
+                    { Resources.IllContact, async () => await IllContact(context) },
+                };
 
                 Action action;
 
                 if (actions.TryGetValue(chosen.ToString(), out action))
                 {
                     action();
+                    context.Done(string.Empty);
                 }
                 else
                 {
                     context.Done(string.Empty);
                 }
 
-                context.Wait<CV>(this.PromptChoices);
+                //context.Wait<User>(PromptChoices);
             }
             catch (Exception ex)
             {
@@ -69,12 +71,12 @@ namespace SimpleEchoBot.Dialogs
 
         private async Task IllContact(IDialogContext context)
         {
-            await context.PostAsync(Resources.NotImplemented);
+            await context.PostAsync(Resources.IllContactResponse);
         }
 
         private async Task ContactMe(IDialogContext context)
         {
-            await context.PostAsync(Resources.NotImplemented);
+            await context.PostAsync(Resources.YouWillBeContacted);
         }
     }
 }

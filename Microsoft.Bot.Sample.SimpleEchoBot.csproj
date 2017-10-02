@@ -137,17 +137,23 @@
     <Compile Include="Dialogs\ContactDialog.cs" />
     <Compile Include="Dialogs\DemoLuisDialog.cs" />
     <Compile Include="Dialogs\EchoDialog.cs" />
+    <Compile Include="Dialogs\ServiceDialog.cs" />
     <Compile Include="Dialogs\IndustryDialog.cs" />
     <Compile Include="Dialogs\RootDialog.cs" />
     <Compile Include="Dialogs\RootLuisDialog.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Helpers\StringHelper.cs" />
     <Compile Include="Models\Configuration\ConfiguredIndustries.cs" />
+    <Compile Include="Models\Configuration\ConfiguredServices.cs" />
     <Compile Include="Models\CVPartner\ConsultantsResponse.cs" />
     <Compile Include="Models\CVPartner\CountriesResponse.cs" />
+    <Compile Include="Models\CVPartner\Image.cs" />
     <Compile Include="Models\CVPartner\IndustriesResponse.cs" />
     <Compile Include="Models\Configuration\Industry.cs" />
+    <Compile Include="Models\CVPartner\SkillsResponse.cs" />
+    <Compile Include="Models\CVPartner\User.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -156,10 +162,12 @@
     </Compile>
     <Compile Include="Services\CVPartnerService.cs" />
     <Compile Include="Services\IndustryConfiguration.cs" />
+    <Compile Include="Services\ServiceConfiguration.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
     <Content Include="Config\Industries.json" />
+    <Content Include="Config\Services.json" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

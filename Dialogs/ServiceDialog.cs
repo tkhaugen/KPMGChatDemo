@@ -14,42 +14,42 @@ namespace SimpleEchoBot.Dialogs
     using SimpleEchoBot.Helpers;
 
     [Serializable]
-    public class IndustryDialog : IDialog<object>
+    public class ServiceDialog : IDialog<object>
     {
         public async Task StartAsync(IDialogContext context)
         {
-            await context.PostAsync(Resources.IndustryChosen);
+            await context.PostAsync(Resources.ServiceChosen);
 
             context.Wait(PromptChoices);
         }
 
         private async Task PromptChoices(IDialogContext context, IAwaitable<object> result)
         {
-            var configuredIndustries = await IndustryConfiguration.GetConfiguredIndustries();
+            var configuredServices = await ServiceConfiguration.GetConfiguredServices();
             PromptDialog.Choice(
                 context,
                 ProcessChoice,
-                configuredIndustries.Industries.Select(ci => ci.Name),
-                Resources.IndustryQuestion,
+                configuredServices.Services.Select(svc => svc.Name),
+                Resources.ServiceQuestion,
                 Resources.SorryChoose,
                 3);
         }
 
         private async Task ProcessChoice(IDialogContext context, IAwaitable<string> result)
         {
-            var chosenIndustry = await result;
+            var chosenService = await result;
 
             //var cvs = await CVPartnerService.Instance.FindCVsForIndustry(chosenIndustry);
             //var cv = cvs.First(); //TODO: Find consultant with the most experience or other logic
 
-            var user = await CVPartnerService.Instance.FindContactForIndustry(chosenIndustry);
+            var user = await CVPartnerService.Instance.FindContactForService(chosenService);
 
-            await PostCVThumbnailCard(context, chosenIndustry, user);
+            await PostCVThumbnailCard(context, chosenService, user);
 
             await context.Forward(new ContactDialog(), ResumeAfterDialog, user, CancellationToken.None);
         }
 
-        private static async Task PostCVThumbnailCard(IDialogContext context, string chosenIndustry, User user)
+        private static async Task PostCVThumbnailCard(IDialogContext context, string chosenService, User user)
         {
             IMessageActivity message = context.MakeMessage();
             ThumbnailCard cvCard = new ThumbnailCard()
@@ -59,7 +59,7 @@ namespace SimpleEchoBot.Dialogs
                     + user.OfficeName.AppendNewline()
                     + user.Email.AppendNewline()
                     + user.Telephone,
-                Text = string.Format(Resources.IndustryChosen2, chosenIndustry, user.Name),
+                Text = string.Format(Resources.ServiceChosen2, chosenService, user.Name),
                 Images = new List<CardImage>()
                 {
                     new CardImage()

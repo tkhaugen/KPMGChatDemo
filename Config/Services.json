@@ -1,0 +1,24 @@
+﻿{
+  "services": [
+    {
+      "name": "Revisjon og bekreftelser",
+      "office": "Audit"
+    },
+    {
+      "name": "Skatt og avgift",
+      "office": "LAW"
+    },
+    {
+      "name": "Rådgivning",
+      "office": "Advisory"
+    },
+    {
+      "name": "Regnskap- og økonomitjenester",
+      "office": "Accounting"
+    },
+    {
+      "name": "Advokattjenester",
+      "office": "LAW"
+    }
+  ]
+}

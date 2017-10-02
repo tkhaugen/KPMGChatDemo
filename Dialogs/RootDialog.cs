@@ -50,8 +50,7 @@ namespace SimpleEchoBot.Dialogs
                     await context.Forward(new IndustryDialog(), ResumeAfterDialog, chosen, CancellationToken.None);
                     break;
                 case _service:
-                    await context.PostAsync(Resources.NotImplemented);
-                    PromptQuestion(context);
+                    await context.Forward(new ServiceDialog(), ResumeAfterDialog, chosen, CancellationToken.None);
                     break;
                 default:
                     context.Wait(MessageReceivedAsync);
