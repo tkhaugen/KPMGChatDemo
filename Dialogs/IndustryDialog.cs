@@ -18,8 +18,23 @@ namespace SimpleEchoBot.Dialogs
     {
         public async Task StartAsync(IDialogContext context)
         {
-            await context.PostAsync(Resources.IndustryChosen);
-            context.Wait(PromptChoices);
+            context.Wait<string>(MessageReceivedAsync);
+        }
+
+        public async Task MessageReceivedAsync(IDialogContext context, IAwaitable<string> argument)
+        {
+            var industry = await argument;
+
+            if (!string.IsNullOrEmpty(industry) && industry != "Bransje")
+            {
+                await context.PostAsync(Resources.IndustryChosen);
+                await FindContactForIndustry(context, industry);
+            }
+            else
+            {
+                await context.PostAsync(Resources.IndustryChosen);
+                context.Wait(PromptChoices);
+            }
         }
 
         private async Task PromptChoices(IDialogContext context, IAwaitable<object> result)
@@ -41,9 +56,14 @@ namespace SimpleEchoBot.Dialogs
             //var cvs = await CVPartnerService.Instance.FindCVsForIndustry(chosenIndustry);
             //var cv = cvs.First(); //TODO: Find consultant with the most experience or other logic
 
-            var user = await CVPartnerService.Instance.FindContactForIndustry(chosenIndustry);
+            await FindContactForIndustry(context, chosenIndustry);
+        }
 
-            await PostCVThumbnailCard(context, chosenIndustry, user);
+        private async Task FindContactForIndustry(IDialogContext context, string industry)
+        {
+            var user = await CVPartnerService.Instance.FindContactForIndustry(industry);
+
+            await PostCVThumbnailCard(context, industry, user);
 
             await context.Forward(new ContactDialog(), ResumeAfterDialog, user, CancellationToken.None);
         }

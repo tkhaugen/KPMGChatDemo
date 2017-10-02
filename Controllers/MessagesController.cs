@@ -25,7 +25,7 @@ namespace Microsoft.Bot.Sample.SimpleEchoBot
             // check if activity is of type message
             if (activity.Type == ActivityTypes.Message)
             {
-                var dialog = new RootDialog();
+                var dialog = new RootLuisDialog();
                 await Conversation.SendAsync(activity, () => dialog);
             }
             else

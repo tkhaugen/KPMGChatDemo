@@ -22,7 +22,6 @@ namespace SimpleEchoBot.Dialogs
         private async Task MessageReceivedAsync(IDialogContext context, IAwaitable<object> result)
         {
             PromptQuestion(context);
-            return;
         }
 
         private void PromptQuestion(IDialogContext context)

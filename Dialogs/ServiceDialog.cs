@@ -18,9 +18,23 @@ namespace SimpleEchoBot.Dialogs
     {
         public async Task StartAsync(IDialogContext context)
         {
-            await context.PostAsync(Resources.ServiceChosen);
-
             context.Wait(PromptChoices);
+        }
+
+        public async Task MessageReceivedAsync(IDialogContext context, IAwaitable<string> argument)
+        {
+            var service = await argument;
+
+            if (!string.IsNullOrEmpty(service) && service != "Tjeneste")
+            {
+                await context.PostAsync(Resources.ServiceChosen);
+                await FindContactForService(context, service);
+            }
+            else
+            {
+                await context.PostAsync(Resources.ServiceChosen);
+                context.Wait(PromptChoices);
+            }
         }
 
         private async Task PromptChoices(IDialogContext context, IAwaitable<object> result)
@@ -42,9 +56,14 @@ namespace SimpleEchoBot.Dialogs
             //var cvs = await CVPartnerService.Instance.FindCVsForIndustry(chosenIndustry);
             //var cv = cvs.First(); //TODO: Find consultant with the most experience or other logic
 
-            var user = await CVPartnerService.Instance.FindContactForService(chosenService);
+            await FindContactForService(context, chosenService);
+        }
 
-            await PostCVThumbnailCard(context, chosenService, user);
+        private async Task FindContactForService(IDialogContext context, string service)
+        {
+            var user = await CVPartnerService.Instance.FindContactForService(service);
+
+            await PostCVThumbnailCard(context, service, user);
 
             await context.Forward(new ContactDialog(), ResumeAfterDialog, user, CancellationToken.None);
         }

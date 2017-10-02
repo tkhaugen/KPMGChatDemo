@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Web;
 using Microsoft.Bot.Builder.Dialogs;
@@ -16,19 +17,21 @@ namespace SimpleEchoBot.Dialogs
     [Serializable]
     public class RootLuisDialog : LuisDialog<object>
     {
+        private const string _resource = "Ressurs";
+        private const string _industry = "Bransje";
+        private const string _service = "Tjeneste";
+
         [LuisIntent("")]
         [LuisIntent("None")]
         public async Task None(IDialogContext context, LuisResult result)
         {
-            await context.PostAsync(Resources.CannotUnderstand);
-            context.Wait(MessageReceived);
+            PromptQuestion(context);
         }
 
         [LuisIntent("Hils")]
         public async Task Greet(IDialogContext context, IAwaitable<IMessageActivity> activity, LuisResult result)
         {
-            await context.PostAsync("Hei, jeg er KPMGs automatiske meldingstjeneste. Fortell meg hva du er interessert i.");
-            context.Wait(MessageReceived);
+            PromptQuestion(context);
         }
 
         [LuisIntent("HentCVForBransje")]
@@ -39,12 +42,12 @@ namespace SimpleEchoBot.Dialogs
             EntityRecommendation entityRecommendation;
             if (result.TryFindEntity("Bransje", out entityRecommendation))
             {
-                await context.PostAsync($"Bransje: {entityRecommendation.Entity}");
+                await context.Forward(new IndustryDialog(), ResumeAfterDialog, entityRecommendation.Entity, CancellationToken.None);
             }
-
-            //context.Call(new IndustryDialog(), ResumeAfterDialog);
-
-            context.Wait(MessageReceived);
+            else
+            {
+                context.Wait(MessageReceived);
+            }
         }
 
         [LuisIntent("HentCVForTjenesteomrade")]
@@ -55,10 +58,8 @@ namespace SimpleEchoBot.Dialogs
             EntityRecommendation entityRecommendation;
             if (result.TryFindEntity("Tjenesteomrade", out entityRecommendation))
             {
-                await context.PostAsync($"Tjenesteområde: {entityRecommendation.Entity}");
+                await context.Forward(new ServiceDialog(), ResumeAfterDialog, entityRecommendation.Entity, CancellationToken.None);
             }
-
-            //context.Call(new ServiceAreaDialog(), ResumeAfterDialog);
 
             context.Wait(MessageReceived);
         }
@@ -71,175 +72,48 @@ namespace SimpleEchoBot.Dialogs
             EntityRecommendation entityRecommendation;
             if (result.TryFindEntity("Ressurs", out entityRecommendation))
             {
-                await context.PostAsync($"Ressurs: {entityRecommendation.Entity}");
+                await context.Forward(new FindContactDialog(), ResumeAfterDialog, entityRecommendation.Entity, CancellationToken.None);
             }
-
-            //context.Call(new TjenesteomradeDialog(), ResumeAfterDialog);
 
             context.Wait(MessageReceived);
         }
 
-        //private Task ResumeAfterDialog(IDialogContext context, IAwaitable<object> result)
-        //{
-        //    context.PostAsync($"Håper du fikk svar på det du lurte på!");
-        //    return Task.CompletedTask;
-        //}
+        private void PromptQuestion(IDialogContext context)
+        {
+            PromptDialog.Choice(
+                context,
+                ProcessChoice,
+                new string[] { _resource, _industry, _service },
+                Resources.InitialQuestion,
+                Resources.SorryChoose,
+                3);
+        }
 
+        private async Task ProcessChoice(IDialogContext context, IAwaitable<string> result)
+        {
+            var chosen = await result;
 
+            switch (chosen)
+            {
+                case _resource:
+                    context.Call(new FindContactDialog(), ResumeAfterDialog);
+                    break;
+                case _industry:
+                    await context.Forward(new IndustryDialog(), ResumeAfterDialog, chosen, CancellationToken.None);
+                    break;
+                case _service:
+                    await context.Forward(new ServiceDialog(), ResumeAfterDialog, chosen, CancellationToken.None);
+                    break;
+                default:
+                    context.Wait(MessageReceived);
+                    break;
+            }
+        }
 
-
-        //[LuisIntent("ShowHotelsReviews")]
-        //public async Task Reviews(IDialogContext context, LuisResult result)
-        //{
-        //    EntityRecommendation hotelEntityRecommendation;
-
-        //    if (result.TryFindEntity(EntityHotelName, out hotelEntityRecommendation))
-        //    {
-        //        await context.PostAsync($"Looking for reviews of '{hotelEntityRecommendation.Entity}'...");
-
-        //        var resultMessage = context.MakeMessage();
-        //        resultMessage.AttachmentLayout = AttachmentLayoutTypes.Carousel;
-        //        resultMessage.Attachments = new List<Attachment>();
-
-        //        for (int i = 0; i < 5; i++)
-        //        {
-        //            var random = new Random(i);
-        //            ThumbnailCard thumbnailCard = new ThumbnailCard()
-        //            {
-        //                Title = this.titleOptions[random.Next(0, this.titleOptions.Count - 1)],
-        //                Text = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris odio magna, sodales vel ligula sit amet, vulputate vehicula velit. Nulla quis consectetur neque, sed commodo metus.",
-        //                Images = new List<CardImage>()
-        //                {
-        //                    new CardImage() { Url = "https://upload.wikimedia.org/wikipedia/en/e/ee/Unknown-person.gif" }
-        //                },
-        //            };
-
-        //            resultMessage.Attachments.Add(thumbnailCard.ToAttachment());
-        //        }
-
-        //        await context.PostAsync(resultMessage);
-        //    }
-
-        //    context.Wait(this.MessageReceived);
-        //}
-
-        //[LuisIntent("Help")]
-        //public async Task Help(IDialogContext context, LuisResult result)
-        //{
-        //    await context.PostAsync("Hi! Try asking me things like 'search hotels in Seattle', 'search hotels near LAX airport' or 'show me the reviews of The Bot Resort'");
-
-        //    context.Wait(this.MessageReceived);
-        //}
-
-        //private IForm<HotelsQuery> BuildHotelsForm()
-        //{
-        //    OnCompletionAsyncDelegate<HotelsQuery> processHotelsSearch = async (context, state) =>
-        //    {
-        //        var message = "Searching for hotels";
-        //        if (!string.IsNullOrEmpty(state.Destination))
-        //        {
-        //            message += $" in {state.Destination}...";
-        //        }
-        //        else if (!string.IsNullOrEmpty(state.AirportCode))
-        //        {
-        //            message += $" near {state.AirportCode.ToUpperInvariant()} airport...";
-        //        }
-
-        //        await context.PostAsync(message);
-        //    };
-
-        //    return new FormBuilder<HotelsQuery>()
-        //        .Field(nameof(HotelsQuery.Destination), (state) => string.IsNullOrEmpty(state.AirportCode))
-        //        .Field(nameof(HotelsQuery.AirportCode), (state) => string.IsNullOrEmpty(state.Destination))
-        //        .OnCompletion(processHotelsSearch)
-        //        .Build();
-        //}
-
-        //private async Task ResumeAfterHotelsFormDialog(IDialogContext context, IAwaitable<HotelsQuery> result)
-        //{
-        //    try
-        //    {
-        //        var searchQuery = await result;
-
-        //        var hotels = await this.GetHotelsAsync(searchQuery);
-
-        //        await context.PostAsync($"I found {hotels.Count()} hotels:");
-
-        //        var resultMessage = context.MakeMessage();
-        //        resultMessage.AttachmentLayout = AttachmentLayoutTypes.Carousel;
-        //        resultMessage.Attachments = new List<Attachment>();
-
-        //        foreach (var hotel in hotels)
-        //        {
-        //            HeroCard heroCard = new HeroCard()
-        //            {
-        //                Title = hotel.Name,
-        //                Subtitle = $"{hotel.Rating} starts. {hotel.NumberOfReviews} reviews. From ${hotel.PriceStarting} per night.",
-        //                Images = new List<CardImage>()
-        //                {
-        //                    new CardImage() { Url = hotel.Image }
-        //                },
-        //                Buttons = new List<CardAction>()
-        //                {
-        //                    new CardAction()
-        //                    {
-        //                        Title = "More details",
-        //                        Type = ActionTypes.OpenUrl,
-        //                        Value = $"https://www.bing.com/search?q=hotels+in+" + HttpUtility.UrlEncode(hotel.Location)
-        //                    }
-        //                }
-        //            };
-
-        //            resultMessage.Attachments.Add(heroCard.ToAttachment());
-        //        }
-
-        //        await context.PostAsync(resultMessage);
-        //    }
-        //    catch (FormCanceledException ex)
-        //    {
-        //        string reply;
-
-        //        if (ex.InnerException == null)
-        //        {
-        //            reply = "You have canceled the operation.";
-        //        }
-        //        else
-        //        {
-        //            reply = $"Oops! Something went wrong :( Technical Details: {ex.InnerException.Message}";
-        //        }
-
-        //        await context.PostAsync(reply);
-        //    }
-        //    finally
-        //    {
-        //        context.Done<object>(null);
-        //    }
-        //}
-
-        //private async Task<IEnumerable<Hotel>> GetHotelsAsync(HotelsQuery searchQuery)
-        //{
-        //    var hotels = new List<Hotel>();
-
-        //    // Filling the hotels results manually just for demo purposes
-        //    for (int i = 1; i <= 5; i++)
-        //    {
-        //        var random = new Random(i);
-        //        Hotel hotel = new Hotel()
-        //        {
-        //            Name = $"{searchQuery.Destination ?? searchQuery.AirportCode} Hotel {i}",
-        //            Location = searchQuery.Destination ?? searchQuery.AirportCode,
-        //            Rating = random.Next(1, 5),
-        //            NumberOfReviews = random.Next(0, 5000),
-        //            PriceStarting = random.Next(80, 450),
-        //            Image = $"https://placeholdit.imgix.net/~text?txtsize=35&txt=Hotel+{i}&w=500&h=260"
-        //        };
-
-        //        hotels.Add(hotel);
-        //    }
-
-        //    hotels.Sort((h1, h2) => h1.PriceStarting.CompareTo(h2.PriceStarting));
-
-        //    return hotels;
-        //}
+        private async Task ResumeAfterDialog(IDialogContext context, IAwaitable<object> result)
+        {
+            await context.PostAsync($"Håper du fikk svar på det du lurte på!");
+            context.Wait(MessageReceived);
+        }
     }
 }
