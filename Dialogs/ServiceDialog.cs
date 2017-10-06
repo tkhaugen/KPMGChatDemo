@@ -18,28 +18,40 @@ namespace SimpleEchoBot.Dialogs
     {
         public async Task StartAsync(IDialogContext context)
         {
-            context.Wait(PromptChoices);
+            context.Wait<string>(PromptChoices);
         }
 
         public async Task MessageReceivedAsync(IDialogContext context, IAwaitable<string> argument)
         {
             var service = await argument;
 
-            if (!string.IsNullOrEmpty(service) && service != "Tjeneste")
+            if (!string.IsNullOrEmpty(service))
             {
-                await context.PostAsync(Resources.ServiceChosen);
+                //await context.PostAsync(Resources.ServiceChosen);
                 await FindContactForService(context, service);
             }
             else
             {
                 await context.PostAsync(Resources.ServiceChosen);
-                context.Wait(PromptChoices);
+                await PromptChoices(context);
             }
+        }
+
+        private async Task PromptChoices(IDialogContext context)
+        {
+            var configuredServices = ServiceConfiguration.GetConfiguredServices();
+            PromptDialog.Choice(
+                context,
+                ProcessChoice,
+                configuredServices.Services.Select(svc => svc.Name),
+                Resources.ServiceQuestion,
+                Resources.SorryChoose,
+                3);
         }
 
         private async Task PromptChoices(IDialogContext context, IAwaitable<object> result)
         {
-            var configuredServices = await ServiceConfiguration.GetConfiguredServices();
+            var configuredServices = ServiceConfiguration.GetConfiguredServices();
             PromptDialog.Choice(
                 context,
                 ProcessChoice,

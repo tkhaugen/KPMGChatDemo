@@ -71,7 +71,7 @@ namespace SimpleEchoBot.Services
             var offices = await GetOffices("no");
             
             // Get the industry configuration, which contains all the variants of that industry registered in the CVPartner database
-            var industryConfig = (await IndustryConfiguration.GetConfiguredIndustries()).Industries.FirstOrDefault(i => i.Name == industry);
+            var industryConfig = IndustryConfiguration.GetConfiguredIndustries().Industries.FirstOrDefault(i => i.Name == industry);
             if (industryConfig == null)
             {
                 //throw new Exception($"Unknown industry: {industry}.");
@@ -110,7 +110,7 @@ namespace SimpleEchoBot.Services
             var offices = await GetOffices("no");
 
             // Get the service configuration, which maps offices to services
-            var officeForService = (await ServiceConfiguration.GetConfiguredServices()).Services.FirstOrDefault(s => s.Name.Equals(service, StringComparison.OrdinalIgnoreCase));
+            var officeForService = ServiceConfiguration.GetConfiguredServices().Services.FirstOrDefault(s => s.Name.Equals(service, StringComparison.OrdinalIgnoreCase));
             if (officeForService == null)
                 return new CV[0];
 
@@ -187,7 +187,14 @@ namespace SimpleEchoBot.Services
             if (result == null)
                 return null;
 
-            return JsonConvert.DeserializeObject<User>(result);
+            try
+            {
+                return JsonConvert.DeserializeObject<User>(result);
+            }
+            catch
+            {
+                return null;
+            }
         }
 
         public async Task<IList<Office>> GetOffices(string countryCode)

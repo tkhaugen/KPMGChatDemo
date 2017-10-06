@@ -79,11 +79,20 @@ namespace SimpleEchoBot.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Vil du at {0} skal kontakte deg eller vil du selv ta kontakt?.
+        ///   Looks up a localized string similar to Vil du at {0} skal kontakte deg?.
         /// </summary>
         internal static string ContactQuestion {
             get {
                 return ResourceManager.GetString("ContactQuestion", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Jeg er ikke så smart at jeg forstår alt ennå, men jeg er flink til å hjelpe deg med Ressurs, Bransje eller Tjeneste..
+        /// </summary>
+        internal static string FallbackQuestion {
+            get {
+                return ResourceManager.GetString("FallbackQuestion", resourceCulture);
             }
         }
         

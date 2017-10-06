@@ -25,21 +25,33 @@ namespace SimpleEchoBot.Dialogs
         {
             var industry = await argument;
 
-            if (!string.IsNullOrEmpty(industry) && industry != "Bransje")
+            if (!string.IsNullOrEmpty(industry))
             {
-                await context.PostAsync(Resources.IndustryChosen);
+                //await context.PostAsync(Resources.IndustryChosen);
                 await FindContactForIndustry(context, industry);
             }
             else
             {
                 await context.PostAsync(Resources.IndustryChosen);
-                context.Wait(PromptChoices);
+                await PromptChoices(context);
             }
+        }
+
+        private async Task PromptChoices(IDialogContext context)
+        {
+            var configuredIndustries = IndustryConfiguration.GetConfiguredIndustries();
+            PromptDialog.Choice(
+                context,
+                ProcessChoice,
+                configuredIndustries.Industries.Select(ci => ci.Name),
+                Resources.IndustryQuestion,
+                Resources.SorryChoose,
+                3);
         }
 
         private async Task PromptChoices(IDialogContext context, IAwaitable<object> result)
         {
-            var configuredIndustries = await IndustryConfiguration.GetConfiguredIndustries();
+            var configuredIndustries = IndustryConfiguration.GetConfiguredIndustries();
             PromptDialog.Choice(
                 context,
                 ProcessChoice,

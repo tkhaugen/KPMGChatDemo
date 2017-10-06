@@ -17,15 +17,43 @@ namespace SimpleEchoBot.Dialogs
     {
         public async Task StartAsync(IDialogContext context)
         {
-            await context.PostAsync("Skriv inn navnet til den ressursen du søker etter.");
-            context.Wait(MessageReceivedAsync);
+            context.Wait<string>(MessageReceivedAsync);
+        }
+
+        public async Task MessageReceivedAsync(IDialogContext context, IAwaitable<string> argument)
+        {
+            var contactName = await argument;
+
+            if (!string.IsNullOrEmpty(contactName))
+            {
+                //await context.PostAsync(Resources.IndustryChosen);
+                await FindContact(context, contactName);
+            }
+            else
+            {
+                await context.PostAsync("Skriv inn navnet til den ressursen du søker etter.");
+                context.Wait(MessageReceivedAsync);
+            }
         }
 
         public async Task MessageReceivedAsync(IDialogContext context, IAwaitable<IMessageActivity> argument)
         {
             var message = await argument;
-            var userName = message.Text;
 
+            if (!string.IsNullOrEmpty(message.Text))
+            {
+                //await context.PostAsync(Resources.IndustryChosen);
+                await FindContact(context, message.Text);
+            }
+            else
+            {
+                await context.PostAsync("Skriv inn navnet til den ressursen du søker etter.");
+                context.Wait(MessageReceivedAsync);
+            }
+        }
+
+        public async Task FindContact(IDialogContext context, string userName)
+        {
             var users = await CVPartnerService.Instance.FindContactByName(userName);
 
             if (users.Count > 0)

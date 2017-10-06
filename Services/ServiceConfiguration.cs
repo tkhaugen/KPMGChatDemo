@@ -16,14 +16,15 @@ namespace SimpleEchoBot.Services
     {
         private static ConfiguredServices _configuredServices;
 
-        public static async Task<ConfiguredServices> GetConfiguredServices()
+        public static ConfiguredServices GetConfiguredServices()
         {
-            if (_configuredServices != null)
-                return _configuredServices;
+            if (_configuredServices == null)
+            {
+                var json = ReadFile("~/Config/Services.json");
+                _configuredServices = JsonConvert.DeserializeObject<ConfiguredServices>(json);
+            }
 
-            var json = await ReadFileAsync("~/Config/Services.json");
-            var configuredServices = await Task.Factory.StartNew(() => JsonConvert.DeserializeObject<ConfiguredServices>(json));
-            return configuredServices;
+            return _configuredServices;
         }
 
         public static string[] GetPreferredRoles()
@@ -31,13 +32,13 @@ namespace SimpleEchoBot.Services
             return ConfigurationManager.AppSettings["Service_PreferredRoles"].Split(',');
         }
 
-        private static async Task<string> ReadFileAsync(string virtualPath)
+        private static string ReadFile(string virtualPath)
         {
             var path = HostingEnvironment.MapPath(virtualPath);
             string content;
             using (var reader = new StreamReader(path))
             {
-                content = await reader.ReadToEndAsync();
+                content = reader.ReadToEnd();
             }
             return content;
         }

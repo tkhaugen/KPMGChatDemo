@@ -124,7 +124,10 @@
     <value>Bli kontaktet</value>
   </data>
   <data name="ContactQuestion" xml:space="preserve">
-    <value>Vil du at {0} skal kontakte deg eller vil du selv ta kontakt?</value>
+    <value>Vil du at {0} skal kontakte deg?</value>
+  </data>
+  <data name="FallbackQuestion" xml:space="preserve">
+    <value>Jeg er ikke så smart at jeg forstår alt ennå, men jeg er flink til å hjelpe deg med Ressurs, Bransje eller Tjeneste.</value>
   </data>
   <data name="IllContact" xml:space="preserve">
     <value>Ta kontakt</value>

@@ -19,53 +19,37 @@ namespace SimpleEchoBot.Dialogs
 
         private async Task PromptChoices(IDialogContext context, IAwaitable<User> result)
         {
-            try
-            {
-                var user = await result;
+            var user = await result;
 
-                PromptDialog.Choice(
-                    context,
-                    ProcessChoiceAsync,
-                    new string[] { Resources.ContactMe, Resources.IllContact },
-                    string.Format(Resources.ContactQuestion, user.Name),
-                    Resources.SorryChoose,
-                    3);
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
+            PromptDialog.Choice(
+                context,
+                ProcessChoiceAsync,
+                new string[] { Resources.ContactMe/*, Resources.IllContact*/ },
+                string.Format(Resources.ContactQuestion, user.Name),
+                Resources.SorryChoose,
+                3);
         }
 
         private async Task ProcessChoiceAsync(IDialogContext context, IAwaitable<object> result)
         {
-            try
+            var chosen = await result;
+
+            var actions = new Dictionary<string, Action>
             {
-                var chosen = await result;
+                { Resources.ContactMe, async () => await ContactMe(context) },
+//                    { Resources.IllContact, async () => await IllContact(context) },
+            };
 
-                var actions = new Dictionary<string, Action>
-                {
-                    { Resources.ContactMe, async () => await ContactMe(context) },
-                    { Resources.IllContact, async () => await IllContact(context) },
-                };
+            Action action;
 
-                Action action;
-
-                if (actions.TryGetValue(chosen.ToString(), out action))
-                {
-                    action();
-                    context.Done(string.Empty);
-                }
-                else
-                {
-                    context.Done(string.Empty);
-                }
-
-                //context.Wait<User>(PromptChoices);
+            if (actions.TryGetValue(chosen.ToString(), out action))
+            {
+                action();
+                context.Done(string.Empty);
             }
-            catch (Exception ex)
+            else
             {
-                throw ex;
+                context.Wait<User>(PromptChoices);
             }
         }
 

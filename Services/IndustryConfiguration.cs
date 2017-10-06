@@ -16,14 +16,15 @@ namespace SimpleEchoBot.Services
     {
         private static ConfiguredIndustries _configuredIndustries;
 
-        public static async Task<ConfiguredIndustries> GetConfiguredIndustries()
+        public static ConfiguredIndustries GetConfiguredIndustries()
         {
-            if (_configuredIndustries != null)
-                return _configuredIndustries;
+            if (_configuredIndustries == null)
+            {
+                var json = ReadFile("~/Config/Industries.json");
+                _configuredIndustries = JsonConvert.DeserializeObject<ConfiguredIndustries>(json);
+            }
 
-            var json = await ReadFileAsync("~/Config/Industries.json");
-            var configuredIndustries = await Task.Factory.StartNew(() => JsonConvert.DeserializeObject<ConfiguredIndustries>(json));
-            return configuredIndustries;
+            return _configuredIndustries;
         }
 
         public static string[] GetPreferredRoles()
@@ -31,13 +32,13 @@ namespace SimpleEchoBot.Services
             return ConfigurationManager.AppSettings["Industry_PreferredRoles"].Split(',');
         }
 
-        private static async Task<string> ReadFileAsync(string virtualPath)
+        private static string ReadFile(string virtualPath)
         {
             var path = HostingEnvironment.MapPath(virtualPath);
             string content;
             using (var reader = new StreamReader(path))
             {
-                content = await reader.ReadToEndAsync();
+                content = reader.ReadToEnd();
             }
             return content;
         }
