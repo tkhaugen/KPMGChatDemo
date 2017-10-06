@@ -88,10 +88,10 @@ namespace SimpleEchoBot.Dialogs
             {
                 Title = user.Name,
                 Subtitle = user.Role.Capitalize().AppendNewline()
-                    + user.OfficeName.AppendNewline()
-                    + user.Email.AppendNewline()
-                    + user.Telephone,
-                Text = string.Empty, //string.Format(Resources.ServiceChosen2, chosenService, user.Name),
+                    + "Kontor: " + user.OfficeName.AppendNewline()
+                    + "E-post: " + user.Email.AppendNewline()
+                    + "Telefon: " + user.Telephone,
+                Text = string.Empty.AppendNewline(), //string.Format(Resources.ServiceChosen2, chosenService, user.Name),
                 Images = new List<CardImage>()
                 {
                     new CardImage()

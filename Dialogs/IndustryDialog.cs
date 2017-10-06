@@ -88,10 +88,10 @@ namespace SimpleEchoBot.Dialogs
             {
                 Title = user.Name,
                 Subtitle = user.Role.Capitalize().AppendNewline()
-                    + user.OfficeName.AppendNewline()
-                    + user.Email.AppendNewline()
-                    + user.Telephone,
-                Text = string.Empty, //string.Format(Resources.IndustryChosen2, chosenIndustry, user.Name),
+                    + "Kontor: " + user.OfficeName.AppendNewline()
+                    + "E-post: " + user.Email.AppendNewline()
+                    + "Telefon: " + user.Telephone,
+                Text = string.Empty.AppendNewline(), //string.Format(Resources.IndustryChosen2, chosenIndustry, user.Name),
                 Images = new List<CardImage>()
                 {
                     new CardImage()
@@ -99,7 +99,7 @@ namespace SimpleEchoBot.Dialogs
                         Url = user.Image.SmallThumb?.Url ?? user.Image.Thumb?.Url ?? user.Image.FitThumb?.Url,
                     }
                 },
-                //Buttons = new[] { new CardAction { Type = ActionTypes. } }
+                //Buttons = new[] { new CardAction { Title = "Bli kontaktet", Text = "Bli kontaktet", DisplayText = user.Name, Value = user.Email, Type = ActionTypes.PostBack } }
             };
 
             Attachment attachment = cvCard.ToAttachment();

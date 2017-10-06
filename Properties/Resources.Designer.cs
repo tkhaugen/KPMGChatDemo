@@ -97,7 +97,7 @@ namespace SimpleEchoBot.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Ta kontakt.
+        ///   Looks up a localized string similar to Nei takk, jeg tar kontakt selv.
         /// </summary>
         internal static string IllContact {
             get {

@@ -24,7 +24,7 @@ namespace SimpleEchoBot.Dialogs
             PromptDialog.Choice(
                 context,
                 ProcessChoiceAsync,
-                new string[] { Resources.ContactMe/*, Resources.IllContact*/ },
+                new string[] { Resources.ContactMe, Resources.IllContact },
                 string.Format(Resources.ContactQuestion, user.Name),
                 Resources.SorryChoose,
                 3);
@@ -37,7 +37,7 @@ namespace SimpleEchoBot.Dialogs
             var actions = new Dictionary<string, Action>
             {
                 { Resources.ContactMe, async () => await ContactMe(context) },
-//                    { Resources.IllContact, async () => await IllContact(context) },
+                { Resources.IllContact, async () => await IllContact(context) },
             };
 
             Action action;

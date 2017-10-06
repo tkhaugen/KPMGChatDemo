@@ -21,6 +21,7 @@ namespace SimpleEchoBot.Dialogs
         private const string _resource = "Ressurs";
         private const string _industry = "Bransje";
         private const string _service = "Tjeneste";
+        private const string _conv_key_rootChoicesShown = "RootChoicesShown";
 
         [LuisIntent("")]
         [LuisIntent("None")]
@@ -93,11 +94,22 @@ namespace SimpleEchoBot.Dialogs
 
         private void PromptQuestion(IDialogContext context)
         {
+            string prompt;
+            if (context.ConversationData.ContainsKey(_conv_key_rootChoicesShown))
+            {
+                prompt = Resources.FallbackQuestion;
+            }
+            else
+            {
+                context.ConversationData.SetValue(_conv_key_rootChoicesShown, true);
+                prompt = Resources.InitialQuestion;
+            }
+
             PromptDialog.Choice(
                 context,
                 ProcessChoice,
                 new string[] { _resource, _industry, _service },
-                Resources.InitialQuestion,
+                prompt,
                 Resources.SorryChoose,
                 3);
         }

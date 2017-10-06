@@ -130,7 +130,7 @@
     <value>Jeg er ikke så smart at jeg forstår alt ennå, men jeg er flink til å hjelpe deg med Ressurs, Bransje eller Tjeneste.</value>
   </data>
   <data name="IllContact" xml:space="preserve">
-    <value>Ta kontakt</value>
+    <value>Nei takk, jeg tar kontakt selv</value>
   </data>
   <data name="IllContactResponse" xml:space="preserve">
     <value>Flott. Kontaktdetaljene ser du i kortet over.</value>
