@@ -75,6 +75,7 @@ namespace SimpleEchoBot.Dialogs
         {
             var user = await CVPartnerService.Instance.FindContactForService(service);
 
+            await context.PostAsync(string.Format(Resources.ServiceChosen2, service, user.Name));
             await PostCVThumbnailCard(context, service, user);
 
             await context.Forward(new ContactDialog(), ResumeAfterDialog, user, CancellationToken.None);
@@ -90,7 +91,7 @@ namespace SimpleEchoBot.Dialogs
                     + user.OfficeName.AppendNewline()
                     + user.Email.AppendNewline()
                     + user.Telephone,
-                Text = string.Format(Resources.ServiceChosen2, chosenService, user.Name),
+                Text = string.Empty, //string.Format(Resources.ServiceChosen2, chosenService, user.Name),
                 Images = new List<CardImage>()
                 {
                     new CardImage()
