@@ -13,19 +13,19 @@ namespace SimpleEchoBot.Models
     [Serializable]
     public class ContactDetails
     {
-        [Prompt("Navn")]
+        [Prompt("Navnet ditt:")]
         public string Name { get; set; }
 
-        [Prompt("E-postadresse")]
+        [Prompt("E-postadresse:")]
         public string Email { get; set; }
 
-        [Prompt("Telefonnummer")]
+        [Prompt("Telefonnummer:")]
         public string Phone { get; set; }
 
         public static IForm<ContactDetails> BuildForm()
         {
             return new FormBuilder<ContactDetails>()
-                .Message("Vennligst skriv inn kontaktinformasjon.")
+                .Message("Vennligst skriv inn kontaktinformasjon som vi kan nå deg med:")
                 .Field(nameof(Name))
                 .Field(nameof(Email),
                     validate: async (state, value) =>
@@ -35,7 +35,7 @@ namespace SimpleEchoBot.Models
                             return new ValidateResult { IsValid = true, Value = string.Empty };
                         if (ValidateEmailAddress(email))
                             return new ValidateResult { IsValid = true, Value = email };
-                        return new ValidateResult { IsValid = false, Feedback = $"{email} ser ikke ut til å være en gyldig epost-adresse. Forsøk igjen.", Value = "" };
+                        return new ValidateResult { IsValid = false, Feedback = $"{email} ser ikke ut til å være en gyldig e-postadresse. Forsøk igjen.", Value = "" };
                     })
                 .Field(nameof(Phone),
                     validate: async (state, value) =>
