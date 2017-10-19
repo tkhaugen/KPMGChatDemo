@@ -25,11 +25,11 @@ namespace SimpleEchoBot.Models
             return new FormBuilder<ContactDetails>()
                 .Message("Vennligst skriv inn kontaktinformasjon.")
                 .AddRemainingFields()
-                .OnCompletion(async (context, form) =>
-                {
-                    // Tell the user that the form is complete  
-                    await context.PostAsync("Humtidum");
-                })
+                //.OnCompletion(async (context, form) =>
+                //{
+                //    // Tell the user that the form is complete  
+                //    await context.PostAsync("Er dette riktig?");
+                //})
                 .Build();
         }
     }
