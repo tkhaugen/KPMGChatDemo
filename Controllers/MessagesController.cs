@@ -5,6 +5,7 @@ using Microsoft.Bot.Builder.Dialogs;
 using System.Web.Http.Description;
 using System.Net.Http;
 using SimpleEchoBot.Dialogs;
+using SimpleEchoBot.Models;
 
 namespace Microsoft.Bot.Sample.SimpleEchoBot
 {
@@ -21,6 +22,12 @@ namespace Microsoft.Bot.Sample.SimpleEchoBot
         {
             if (activity == null)
                 return new HttpResponseMessage(System.Net.HttpStatusCode.BadRequest);
+
+            // Save some resources
+            //var savePath = @"D:\Users\tkhau\Utvikling\Source\Repos\KPMGChatDemo\Properties\ContactDetailsForm.resx";
+            //var writer = new System.Resources.ResourceWriter(savePath);
+            //var form = ContactDetails.BuildForm();
+            //form.SaveResources(writer);
 
             // check if activity is of type message
             if (activity.Type == ActivityTypes.Message)

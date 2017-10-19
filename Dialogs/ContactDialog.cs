@@ -7,7 +7,9 @@ using Microsoft.Bot.Connector;
 
 namespace SimpleEchoBot.Dialogs
 {
+    using Microsoft.Bot.Builder.FormFlow;
     using Models.CVPartner;
+    using SimpleEchoBot.Models;
 
     [Serializable]
     public class ContactDialog : IDialog<object>
@@ -36,7 +38,7 @@ namespace SimpleEchoBot.Dialogs
 
             var actions = new Dictionary<string, Action>
             {
-                { Resources.ContactMe, async () => await ContactMe(context) },
+                { Resources.ContactMe, async () => await GetContactDetails(context) },
                 { Resources.IllContact, async () => await IllContact(context) },
             };
 
@@ -45,7 +47,6 @@ namespace SimpleEchoBot.Dialogs
             if (actions.TryGetValue(chosen.ToString(), out action))
             {
                 action();
-                context.Done(string.Empty);
             }
             else
             {
@@ -56,11 +57,20 @@ namespace SimpleEchoBot.Dialogs
         private async Task IllContact(IDialogContext context)
         {
             await context.PostAsync(Resources.IllContactResponse);
+            context.Done(string.Empty);
         }
 
-        private async Task ContactMe(IDialogContext context)
+        private async Task GetContactDetails(IDialogContext context)
+        {
+            var dialog = Chain.From(() => FormDialog.FromForm(ContactDetails.BuildForm, FormOptions.PromptInStart));
+
+            context.Call(dialog, ResumeAfterContactDetails);
+        }
+
+        private async Task ResumeAfterContactDetails(IDialogContext context, IAwaitable<ContactDetails> result)
         {
             await context.PostAsync(Resources.YouWillBeContacted);
+            context.Done(string.Empty);
         }
     }
 }

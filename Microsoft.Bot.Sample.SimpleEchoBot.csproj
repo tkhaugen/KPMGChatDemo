@@ -148,6 +148,7 @@
     <Compile Include="Helpers\StringHelper.cs" />
     <Compile Include="Models\Configuration\ConfiguredIndustries.cs" />
     <Compile Include="Models\Configuration\ConfiguredServices.cs" />
+    <Compile Include="Models\ContactDetails.cs" />
     <Compile Include="Models\CVPartner\ConsultantsResponse.cs" />
     <Compile Include="Models\CVPartner\CountriesResponse.cs" />
     <Compile Include="Models\CVPartner\Image.cs" />
