@@ -160,6 +160,24 @@ namespace SimpleEchoBot.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to {0} ser ikke ut til å være en gyldig e-postadresse. Prøv igjen (eller skriv &apos;ingen&apos; for å hoppe over)..
+        /// </summary>
+        internal static string InvalidEmail {
+            get {
+                return ResourceManager.GetString("InvalidEmail", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {0} ser ikke ut til å være et gyldig telefonnumer. Prøv igjen (eller skriv &apos;ingen&apos; for å hoppe over)..
+        /// </summary>
+        internal static string InvalidPhone {
+            get {
+                return ResourceManager.GetString("InvalidPhone", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Beklager! Det vet jeg ikke noe om enda..
         /// </summary>
         internal static string NotImplemented {
@@ -219,6 +237,15 @@ namespace SimpleEchoBot.Properties {
         internal static string SorryChoose {
             get {
                 return ResourceManager.GetString("SorryChoose", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to OK.
+        /// </summary>
+        internal static string TooManyAttempts {
+            get {
+                return ResourceManager.GetString("TooManyAttempts", resourceCulture);
             }
         }
         

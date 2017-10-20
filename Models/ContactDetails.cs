@@ -7,12 +7,15 @@ using Microsoft.Bot.Builder.Dialogs;
 using Microsoft.Bot.Builder.FormFlow;
 using System.Text.RegularExpressions;
 using SimpleEchoBot.Helpers;
+using SimpleEchoBot.Properties;
 
 namespace SimpleEchoBot.Models
 {
     [Serializable]
     public class ContactDetails
     {
+        private const string _noValue = "(ingen)";
+
         [Prompt("Navnet ditt:")]
         public string Name { get; set; }
 
@@ -31,21 +34,21 @@ namespace SimpleEchoBot.Models
                     validate: async (state, value) =>
                     {
                         var email = (string)value;
-                        if (string.IsNullOrWhiteSpace(email))
-                            return new ValidateResult { IsValid = true, Value = string.Empty };
+                        if (IsSkipCommand(email))
+                            return new ValidateResult { IsValid = true, Value = _noValue };
                         if (ValidateEmailAddress(email))
                             return new ValidateResult { IsValid = true, Value = email };
-                        return new ValidateResult { IsValid = false, Feedback = $"{email} ser ikke ut til å være en gyldig e-postadresse. Forsøk igjen.", Value = "" };
+                        return new ValidateResult { IsValid = false, Feedback = string.Format(Resources.InvalidEmail, email), Value = "" };
                     })
                 .Field(nameof(Phone),
                     validate: async (state, value) =>
                     {
                         var phone = (string)value;
-                        if (string.IsNullOrWhiteSpace(phone))
-                            return new ValidateResult { IsValid = true, Value = string.Empty };
+                        if (IsSkipCommand(phone))
+                            return new ValidateResult { IsValid = true, Value = _noValue };
                         if (ValidatePhoneNumber(phone))
                             return new ValidateResult { IsValid = true, Value = phone };
-                        return new ValidateResult { IsValid = false, Feedback = $"{phone} ser ikke ut til å være et gyldig telefonnumer. Forsøk igjen.", Value = "" };
+                        return new ValidateResult { IsValid = false, Feedback = string.Format(Resources.InvalidPhone, phone), Value = "" };
                     })
                 //.OnCompletion(async (context, form) =>
                 //{
@@ -54,6 +57,14 @@ namespace SimpleEchoBot.Models
                 //        + "Navn: " + form.Name);
                 //})
                 .Build();
+        }
+
+        private static bool IsSkipCommand(string input)
+        {
+            if (input == null)
+                return false;
+
+            return input.Trim().ToLower() == "ingen";
         }
 
         private static bool ValidateEmailAddress(string address)

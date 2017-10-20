@@ -105,33 +105,44 @@ namespace SimpleEchoBot.Dialogs
                 prompt = Resources.InitialQuestion;
             }
 
+            var options = new PromptOptions<string>(
+                prompt,
+                Resources.SorryChoose,
+                Resources.TooManyAttempts,
+                new string[] { _resource, _industry, _service },
+                2);
+
             PromptDialog.Choice(
                 context,
                 ProcessChoice,
-                new string[] { _resource, _industry, _service },
-                prompt,
-                Resources.SorryChoose,
-                3);
+                options);
         }
 
         private async Task ProcessChoice(IDialogContext context, IAwaitable<string> result)
         {
-            var chosen = await result;
-
-            switch (chosen)
+            try
             {
-                case _resource:
-                    await ForwardToFindContactDialog(context, string.Empty);
-                    break;
-                case _industry:
-                    await ForwardToIndustryDialog(context, string.Empty);
-                    break;
-                case _service:
-                    await ForwardToServiceDialog(context, string.Empty);
-                    break;
-                default:
-                    context.Wait(MessageReceived);
-                    break;
+                var chosen = await result;
+
+                switch (chosen)
+                {
+                    case _resource:
+                        await ForwardToFindContactDialog(context, string.Empty);
+                        break;
+                    case _industry:
+                        await ForwardToIndustryDialog(context, string.Empty);
+                        break;
+                    case _service:
+                        await ForwardToServiceDialog(context, string.Empty);
+                        break;
+                    default:
+                        context.Wait(MessageReceived);
+                        break;
+                }
+            }
+            catch (TooManyAttemptsException ex)
+            {
+                context.Done(string.Empty);
             }
         }
 

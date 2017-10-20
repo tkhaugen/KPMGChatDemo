@@ -150,6 +150,12 @@
   <data name="InitialQuestion" xml:space="preserve">
     <value>Hei, jeg er KPMGs automatiske meldingstjeneste. Hvis du velger det området henvendelsen gjelder under, så skal jeg hjelpe deg videre.</value>
   </data>
+  <data name="InvalidEmail" xml:space="preserve">
+    <value>{0} ser ikke ut til å være en gyldig e-postadresse. Prøv igjen (eller skriv 'ingen' for å hoppe over).</value>
+  </data>
+  <data name="InvalidPhone" xml:space="preserve">
+    <value>{0} ser ikke ut til å være et gyldig telefonnumer. Prøv igjen (eller skriv 'ingen' for å hoppe over).</value>
+  </data>
   <data name="NotImplemented" xml:space="preserve">
     <value>Beklager! Det vet jeg ikke noe om enda.</value>
   </data>
@@ -170,6 +176,9 @@
   </data>
   <data name="SorryChoose" xml:space="preserve">
     <value>Jeg kan desverre bare svare på spørsmålet over foreløpig. Vennligst velg et av alternativene.</value>
+  </data>
+  <data name="TooManyAttempts" xml:space="preserve">
+    <value>OK</value>
   </data>
   <data name="YouWillBeContacted" xml:space="preserve">
     <value>Flott. Vår medarbeider vil ta kontakt så snart som mulig.</value>
