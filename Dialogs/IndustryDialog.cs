@@ -18,12 +18,13 @@ namespace SimpleEchoBot.Dialogs
     {
         public async Task StartAsync(IDialogContext context)
         {
-            context.Wait<string>(MessageReceivedAsync);
+            context.Wait(MessageReceivedAsync);
         }
 
-        public async Task MessageReceivedAsync(IDialogContext context, IAwaitable<string> argument)
+        public async Task MessageReceivedAsync(IDialogContext context, IAwaitable<IMessageActivity> argument)
         {
-            var industry = await argument;
+            var activity = await argument;
+            var industry = activity.Text;
 
             if (!string.IsNullOrEmpty(industry))
             {
@@ -38,18 +39,6 @@ namespace SimpleEchoBot.Dialogs
         }
 
         private async Task PromptChoices(IDialogContext context)
-        {
-            var configuredIndustries = IndustryConfiguration.GetConfiguredIndustries();
-            PromptDialog.Choice(
-                context,
-                ProcessChoice,
-                configuredIndustries.Industries.Select(ci => ci.Name),
-                Resources.IndustryQuestion,
-                Resources.SorryChoose,
-                3);
-        }
-
-        private async Task PromptChoices(IDialogContext context, IAwaitable<object> result)
         {
             var configuredIndustries = IndustryConfiguration.GetConfiguredIndustries();
             PromptDialog.Choice(
@@ -78,7 +67,7 @@ namespace SimpleEchoBot.Dialogs
             await context.PostAsync(string.Format(Resources.IndustryChosen2, industry, user.Name));
             await PostCVThumbnailCard(context, industry, user);
 
-            await context.Forward(new ContactDialog(), ResumeAfterDialog, user, CancellationToken.None);
+            await context.Forward(new ContactDialog(), ResumeAfterContactDialog, user, CancellationToken.None);
         }
 
         private static async Task PostCVThumbnailCard(IDialogContext context, string chosenIndustry, User user)
@@ -108,7 +97,7 @@ namespace SimpleEchoBot.Dialogs
             await context.PostAsync(message);
         }
 
-        private async Task ResumeAfterDialog(IDialogContext context, IAwaitable<object> result)
+        private async Task ResumeAfterContactDialog(IDialogContext context, IAwaitable<object> result)
         {
             context.Done(string.Empty);
         }

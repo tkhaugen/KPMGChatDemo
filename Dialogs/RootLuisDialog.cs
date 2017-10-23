@@ -86,7 +86,7 @@ namespace SimpleEchoBot.Dialogs
             EntityRecommendation entityRecommendation;
             if (result.TryFindEntity("Ressurs", out entityRecommendation))
             {
-                await context.Forward(new FindContactDialog(), ResumeAfterDialog, entityRecommendation.Entity, CancellationToken.None);
+                await ForwardToFindContactDialog(context, entityRecommendation.Entity);
             }
 
             context.Wait(MessageReceived);
@@ -110,7 +110,7 @@ namespace SimpleEchoBot.Dialogs
                 Resources.SorryChoose,
                 Resources.TooManyAttempts,
                 new string[] { _resource, _industry, _service },
-                2);
+                1);
 
             PromptDialog.Choice(
                 context,
@@ -153,7 +153,9 @@ namespace SimpleEchoBot.Dialogs
 
         private async Task ForwardToIndustryDialog(IDialogContext context, string industry)
         {
-            await context.Forward(new IndustryDialog(), ResumeAfterDialog, industry, CancellationToken.None);
+            var message = context.MakeMessage();
+            message.Text = industry;
+            await context.Forward(new IndustryDialog(), ResumeAfterDialog, message, CancellationToken.None);
         }
 
         private async Task ForwardToServiceDialog(IDialogContext context, string service)

@@ -23,48 +23,37 @@ namespace SimpleEchoBot.Dialogs
         {
             var user = await result;
 
+            var options = new PromptOptions<string>(
+                string.Format(Resources.ContactQuestion, user.Name),
+                Resources.SorryChoose,
+                Resources.TooManyAttempts,
+                new string[] { Resources.ContactMe, Resources.IllContact },
+                1);
+
             PromptDialog.Choice(
                 context,
                 ProcessChoiceAsync,
-                new string[] { Resources.ContactMe, Resources.IllContact },
-                string.Format(Resources.ContactQuestion, user.Name),
-                Resources.SorryChoose,
-                3);
+                options);
         }
 
-        private async Task ProcessChoiceAsync(IDialogContext context, IAwaitable<object> result)
+        private async Task ProcessChoiceAsync(IDialogContext context, IAwaitable<string> result)
         {
             var chosen = await result;
 
-            var actions = new Dictionary<string, Action>
+            if (chosen == Resources.ContactMe)
             {
-                { Resources.ContactMe, async () => await GetContactDetails(context) },
-                { Resources.IllContact, async () => await IllContact(context) },
-            };
-
-            Action action;
-
-            if (actions.TryGetValue(chosen.ToString(), out action))
+                var dialog = Chain.From(() => FormDialog.FromForm(ContactDetails.BuildForm, FormOptions.PromptInStart));
+                context.Call(dialog, ResumeAfterContactDetails);
+            }
+            else if (chosen == Resources.IllContact)
             {
-                action();
+                await context.PostAsync(Resources.IllContactResponse);
+                context.Done(string.Empty);
             }
             else
             {
-                context.Wait<User>(PromptChoices);
+                context.Done(string.Empty);
             }
-        }
-
-        private async Task IllContact(IDialogContext context)
-        {
-            await context.PostAsync(Resources.IllContactResponse);
-            context.Done(string.Empty);
-        }
-
-        private async Task GetContactDetails(IDialogContext context)
-        {
-            var dialog = Chain.From(() => FormDialog.FromForm(ContactDetails.BuildForm, FormOptions.PromptInStart));
-
-            context.Call(dialog, ResumeAfterContactDetails);
         }
 
         private async Task ResumeAfterContactDetails(IDialogContext context, IAwaitable<ContactDetails> result)

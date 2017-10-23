@@ -23,13 +23,7 @@ namespace Microsoft.Bot.Sample.SimpleEchoBot
             if (activity == null)
                 return new HttpResponseMessage(System.Net.HttpStatusCode.BadRequest);
 
-            // Save some resources
-            //var savePath = @"D:\Users\tkhau\Utvikling\Source\Repos\KPMGChatDemo\Properties\ContactDetailsForm.resx";
-            //var writer = new System.Resources.ResourceWriter(savePath);
-            //var form = ContactDetails.BuildForm();
-            //form.SaveResources(writer);
-
-            // check if activity is of type message
+            // Check if activity is of type message
             if (activity.Type == ActivityTypes.Message)
             {
                 var dialog = new RootLuisDialog();
