@@ -30,10 +30,10 @@ namespace SimpleEchoBot.Dialogs
             string entity;
             if (SimpleIndustryIntent(result.Query, out entity))
                 await ForwardToIndustryDialog(context, entity);
-            if (SimpleServiceIntent(result.Query, out entity))
+            else if (SimpleServiceIntent(result.Query, out entity))
                 await ForwardToServiceDialog(context, entity);
-
-            PromptQuestion(context);
+            else
+                PromptQuestion(context);
         }
 
         [LuisIntent("Hils")]
@@ -42,10 +42,10 @@ namespace SimpleEchoBot.Dialogs
             string entity;
             if (SimpleIndustryIntent(result.Query, out entity))
                 await ForwardToIndustryDialog(context, entity);
-            if (SimpleServiceIntent(result.Query, out entity))
+            else if (SimpleServiceIntent(result.Query, out entity))
                 await ForwardToServiceDialog(context, entity);
-
-            PromptQuestion(context);
+            else
+                PromptQuestion(context);
         }
 
         [LuisIntent("HentCVForBransje")]
@@ -148,7 +148,9 @@ namespace SimpleEchoBot.Dialogs
 
         private async Task ForwardToFindContactDialog(IDialogContext context, string contact)
         {
-            await context.Forward(new FindContactDialog(), ResumeAfterDialog, contact, CancellationToken.None);
+            var message = context.MakeMessage();
+            message.Text = contact;
+            await context.Forward(new FindContactDialog(), ResumeAfterDialog, message, CancellationToken.None);
         }
 
         private async Task ForwardToIndustryDialog(IDialogContext context, string industry)
@@ -160,7 +162,9 @@ namespace SimpleEchoBot.Dialogs
 
         private async Task ForwardToServiceDialog(IDialogContext context, string service)
         {
-            await context.Forward(new ServiceDialog(), ResumeAfterDialog, service, CancellationToken.None);
+            var message = context.MakeMessage();
+            message.Text = service;
+            await context.Forward(new ServiceDialog(), ResumeAfterDialog, message, CancellationToken.None);
         }
 
         private async Task ResumeAfterDialog(IDialogContext context, IAwaitable<object> result)

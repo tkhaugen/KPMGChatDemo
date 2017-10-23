@@ -1,28 +1,30 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.Bot.Builder.Dialogs;
-using SimpleEchoBot.Properties;
-using System.Threading;
 using Microsoft.Bot.Connector;
 
 namespace SimpleEchoBot.Dialogs
 {
-    using Services;
     using Models.CVPartner;
+    using Properties;
+    using Services;
     using SimpleEchoBot.Helpers;
-    using System.Collections.Generic;
 
     [Serializable]
     public class FindContactDialog : IDialog<object>
     {
         public async Task StartAsync(IDialogContext context)
         {
-            context.Wait<string>(MessageReceivedAsync);
+            context.Wait(MessageReceivedAsync);
         }
 
-        public async Task MessageReceivedAsync(IDialogContext context, IAwaitable<string> argument)
+        public async Task MessageReceivedAsync(IDialogContext context, IAwaitable<IMessageActivity> argument)
         {
-            var contactName = await argument;
+            var activity = await argument;
+            var contactName = activity.Text;
 
             if (!string.IsNullOrEmpty(contactName))
             {
@@ -31,23 +33,7 @@ namespace SimpleEchoBot.Dialogs
             }
             else
             {
-                await context.PostAsync("Skriv inn navnet til den ressursen du søker etter.");
-                context.Wait(MessageReceivedAsync);
-            }
-        }
-
-        public async Task MessageReceivedAsync(IDialogContext context, IAwaitable<IMessageActivity> argument)
-        {
-            var message = await argument;
-
-            if (!string.IsNullOrEmpty(message.Text))
-            {
-                //await context.PostAsync(Resources.IndustryChosen);
-                await FindContact(context, message.Text);
-            }
-            else
-            {
-                await context.PostAsync("Skriv inn navnet til den ressursen du søker etter.");
+                await context.PostAsync(Resources.PromptResourceName);
                 context.Wait(MessageReceivedAsync);
             }
         }

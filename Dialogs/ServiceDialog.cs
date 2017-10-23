@@ -18,12 +18,13 @@ namespace SimpleEchoBot.Dialogs
     {
         public async Task StartAsync(IDialogContext context)
         {
-            context.Wait<string>(PromptChoices);
+            context.Wait(MessageReceivedAsync);
         }
 
-        public async Task MessageReceivedAsync(IDialogContext context, IAwaitable<string> argument)
+        public async Task MessageReceivedAsync(IDialogContext context, IAwaitable<IMessageActivity> argument)
         {
-            var service = await argument;
+            var activity = await argument;
+            var service = activity.Text;
 
             if (!string.IsNullOrEmpty(service))
             {
@@ -38,18 +39,6 @@ namespace SimpleEchoBot.Dialogs
         }
 
         private async Task PromptChoices(IDialogContext context)
-        {
-            var configuredServices = ServiceConfiguration.GetConfiguredServices();
-            PromptDialog.Choice(
-                context,
-                ProcessChoice,
-                configuredServices.Services.Select(svc => svc.Name),
-                Resources.ServiceQuestion,
-                Resources.SorryChoose,
-                3);
-        }
-
-        private async Task PromptChoices(IDialogContext context, IAwaitable<object> result)
         {
             var configuredServices = ServiceConfiguration.GetConfiguredServices();
             PromptDialog.Choice(
@@ -78,7 +67,7 @@ namespace SimpleEchoBot.Dialogs
             await context.PostAsync(string.Format(Resources.ServiceChosen2, service, user.Name));
             await PostCVThumbnailCard(context, service, user);
 
-            await context.Forward(new ContactDialog(), ResumeAfterDialog, user, CancellationToken.None);
+            await context.Forward(new ContactDialog(), ResumeAfterContactDialog, user, CancellationToken.None);
         }
 
         private static async Task PostCVThumbnailCard(IDialogContext context, string chosenService, User user)
@@ -91,15 +80,14 @@ namespace SimpleEchoBot.Dialogs
                     + "Kontor: " + user.OfficeName.AppendNewline()
                     + "E-post: " + user.Email.AppendNewline()
                     + "Telefon: " + user.Telephone,
-                Text = string.Empty.AppendNewline(), //string.Format(Resources.ServiceChosen2, chosenService, user.Name),
+                Text = string.Empty.AppendNewline(),
                 Images = new List<CardImage>()
                 {
                     new CardImage()
                     {
                         Url = user.Image.SmallThumb?.Url ?? user.Image.Thumb?.Url ?? user.Image.FitThumb?.Url,
                     }
-                },
-                //Buttons = new[] { new CardAction { Type = ActionTypes. } }
+                }
             };
 
             Attachment attachment = cvCard.ToAttachment();
@@ -108,7 +96,7 @@ namespace SimpleEchoBot.Dialogs
             await context.PostAsync(message);
         }
 
-        private async Task ResumeAfterDialog(IDialogContext context, IAwaitable<object> result)
+        private async Task ResumeAfterContactDialog(IDialogContext context, IAwaitable<object> result)
         {
             context.Done(string.Empty);
         }

@@ -187,6 +187,15 @@ namespace SimpleEchoBot.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Skriv inn navnet til den ressursen du søker etter..
+        /// </summary>
+        internal static string PromptResourceName {
+            get {
+                return ResourceManager.GetString("PromptResourceName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Ressurs.
         /// </summary>
         internal static string Resource {

@@ -159,6 +159,9 @@
   <data name="NotImplemented" xml:space="preserve">
     <value>Beklager! Det vet jeg ikke noe om enda.</value>
   </data>
+  <data name="PromptResourceName" xml:space="preserve">
+    <value>Skriv inn navnet til den ressursen du søker etter.</value>
+  </data>
   <data name="Resource" xml:space="preserve">
     <value>Ressurs</value>
   </data>
