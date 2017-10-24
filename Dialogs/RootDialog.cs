@@ -42,13 +42,13 @@ namespace SimpleEchoBot.Dialogs
             switch (chosen)
             {
                 case _resource:
-                    context.Call(new FindContactDialog(), ResumeAfterDialog);
+                    context.Call(new ResourcesDialog(), ResumeAfterDialog);
                     break;
                 case _industry:
-                    await context.Forward(new IndustryDialog(), ResumeAfterDialog, chosen, CancellationToken.None);
+                    await context.Forward(new IndustriesDialog(), ResumeAfterDialog, chosen, CancellationToken.None);
                     break;
                 case _service:
-                    await context.Forward(new ServiceDialog(), ResumeAfterDialog, chosen, CancellationToken.None);
+                    await context.Forward(new ServicesDialog(), ResumeAfterDialog, chosen, CancellationToken.None);
                     break;
                 default:
                     context.Wait(MessageReceivedAsync);

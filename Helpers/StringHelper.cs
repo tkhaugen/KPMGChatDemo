@@ -19,5 +19,10 @@ namespace SimpleEchoBot.Helpers
         {
             return (s ?? "") + "  \n";
         }
+
+        public static string MakeEmailAddress(string name, string address)
+        {
+            return $"{name} <{address}>";
+        }
     }
 }

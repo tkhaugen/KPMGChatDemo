@@ -150,21 +150,21 @@ namespace SimpleEchoBot.Dialogs
         {
             var message = context.MakeMessage();
             message.Text = contact;
-            await context.Forward(new FindContactDialog(), ResumeAfterDialog, message, CancellationToken.None);
+            await context.Forward(new ResourcesDialog(), ResumeAfterDialog, message, CancellationToken.None);
         }
 
         private async Task ForwardToIndustryDialog(IDialogContext context, string industry)
         {
             var message = context.MakeMessage();
             message.Text = industry;
-            await context.Forward(new IndustryDialog(), ResumeAfterDialog, message, CancellationToken.None);
+            await context.Forward(new IndustriesDialog(), ResumeAfterDialog, message, CancellationToken.None);
         }
 
         private async Task ForwardToServiceDialog(IDialogContext context, string service)
         {
             var message = context.MakeMessage();
             message.Text = service;
-            await context.Forward(new ServiceDialog(), ResumeAfterDialog, message, CancellationToken.None);
+            await context.Forward(new ServicesDialog(), ResumeAfterDialog, message, CancellationToken.None);
         }
 
         private async Task ResumeAfterDialog(IDialogContext context, IAwaitable<object> result)
@@ -198,7 +198,7 @@ namespace SimpleEchoBot.Dialogs
             if (string.IsNullOrEmpty(message))
                 return false;
 
-            var services = ServiceConfiguration.GetConfiguredServices();
+            var services = ServicesConfiguration.GetConfiguredServices();
             var service = services.Services.FirstOrDefault(x => x.Name.ToLowerInvariant().Contains(message.ToLowerInvariant()));
             if (service != null)
             {

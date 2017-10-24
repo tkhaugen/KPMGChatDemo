@@ -8,6 +8,7 @@ using Microsoft.Bot.Builder.FormFlow;
 using System.Text.RegularExpressions;
 using SimpleEchoBot.Helpers;
 using SimpleEchoBot.Properties;
+using SimpleEchoBot.Models.CVPartner;
 
 namespace SimpleEchoBot.Models
 {
@@ -16,20 +17,31 @@ namespace SimpleEchoBot.Models
     {
         private const string _noValue = "(ingen)";
 
-        [Prompt("Navnet ditt:")]
+        [Prompt("Hva er navnet ditt?")]
         public string Name { get; set; }
 
-        [Prompt("E-postadresse:")]
+        [Prompt("Hvilket firma representerer du?")]
+        public string Company { get; set; }
+
+        [Prompt("E-postadressen?")]
         public string Email { get; set; }
 
-        [Prompt("Telefonnummer:")]
+        [Prompt("Telefonnummer?")]
         public string Phone { get; set; }
 
         public static IForm<ContactDetails> BuildForm()
         {
             return new FormBuilder<ContactDetails>()
-                .Message("Vennligst skriv inn kontaktinformasjon som vi kan nå deg med:")
+                .Message("Vennligst skriv inn kontaktinformasjon som vi kan nå deg med.")
                 .Field(nameof(Name))
+                .Field(nameof(Company),
+                    validate: async (state, value) =>
+                    {
+                        var company = (string)value;
+                        if (IsSkipCommand(company))
+                            return new ValidateResult { IsValid = true, Value = _noValue };
+                        return new ValidateResult { IsValid = true, Value = company };
+                    })
                 .Field(nameof(Email),
                     validate: async (state, value) =>
                     {
@@ -54,7 +66,7 @@ namespace SimpleEchoBot.Models
                 //{
                 //    // Tell the user that the form is complete  
                 //    await context.PostAsync("Er dette riktige opplysninger?".AppendNewline()
-                //        + "Navn: " + form.Name);
+                //        + "Navn: " + form.Name.AppendNewline());
                 //})
                 .Build();
         }

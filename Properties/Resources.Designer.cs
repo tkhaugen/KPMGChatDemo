@@ -88,6 +88,111 @@ namespace SimpleEchoBot.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to *(Denne e-posten vil bli sendt som en bekreftelse til brukeren som har registrert ønske om å bli kontaktet via KPMG ChatBot. I testperioden sendes den i stedet til konfigurerte mottakere)*
+        ///
+        ///**Hei, {6}**
+        ///
+        ///Vi har registrert ditt ønske om å bli kontaktet av en av være medarbeidere:
+        ///
+        ///**Navn:** {1}
+        ///**Rolle:** {2}
+        ///**Kontor:** {3}
+        ///
+        ///Henvendelsen gjelder: **{0}**.
+        ///
+        ///Dette er kontaktdetaljene vi har registrert for deg:
+        ///
+        ///**Navn:** {6}
+        ///**Firma:** {7}
+        ///**E-postadresse:** {8}
+        ///**Telefonnummer:** {9}
+        ///
+        ///Med  [rest of string was truncated]&quot;;.
+        /// </summary>
+        internal static string EmailReceiptToContactBody {
+            get {
+                return ResourceManager.GetString("EmailReceiptToContactBody", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Bekreftelse fra KPMG Chatbot.
+        /// </summary>
+        internal static string EmailReceiptToContactSubject {
+            get {
+                return ResourceManager.GetString("EmailReceiptToContactSubject", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to En bruker har, via KPMG chatbot, registrert ønske om å bli kontaktet.
+        ///
+        ///Henvendelsen gjelder: **{0}**.
+        ///
+        ///**Kontaktdetaljer:**
+        ///
+        ///**Navn:** {6}
+        ///**Firma:** {7}
+        ///**E-postadresse:** {8}
+        ///**Telefonnummer:** {9}
+        ///
+        ///Følgende profil ble automatisk hentet fra CV-databasen basert på registrert kompetanse:
+        ///
+        ///**Navn:** {1}
+        ///**Rolle:** {2}
+        ///**Kontor:** {3}
+        ///**E-postadresse:** {4}
+        ///**Telefonnummer:** {5}
+        ///
+        ///En epost har blitt sendt direkte til ham/henne.
+        ///
+        ///Med vennlig hilsen
+        ///KPMG Chatbot.
+        /// </summary>
+        internal static string EmailToConfiguredRecipientsBody {
+            get {
+                return ResourceManager.GetString("EmailToConfiguredRecipientsBody", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Kontaktforespørsel fra KPMG Chatbot.
+        /// </summary>
+        internal static string EmailToConfiguredRecipientsSubject {
+            get {
+                return ResourceManager.GetString("EmailToConfiguredRecipientsSubject", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to *(Denne e-posten vil bli sendt til en medarbeider automatisk valgt ut fra CV-databasen basert på registrert kompetanse. I testperioden sendes den i stedet til konfigurerte mottakere)*
+        ///
+        ///**Hei, {1}**
+        ///
+        ///En bruker har, via KPMG chatbot, registrert ønske om å bli kontaktet.
+        ///
+        ///Henvendelsen gjelder: **{0}**.
+        ///
+        ///Din profil ble automatisk hentet fra CV-databasen basert på registrert kompetanse.
+        ///
+        ///Dersom du mener at denne henvendelsen ikke er naturlig å besvare for deg, vær vennlig å sende den videre til rette v [rest of string was truncated]&quot;;.
+        /// </summary>
+        internal static string EmailToUserBody {
+            get {
+                return ResourceManager.GetString("EmailToUserBody", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Kontaktforespørsel fra KPMG Chatbot.
+        /// </summary>
+        internal static string EmailToUserSubject {
+            get {
+                return ResourceManager.GetString("EmailToUserSubject", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Jeg er ikke så smart at jeg forstår alt ennå, men jeg er flink til å hjelpe deg med Ressurs, Bransje eller Tjeneste..
         /// </summary>
         internal static string FallbackQuestion {

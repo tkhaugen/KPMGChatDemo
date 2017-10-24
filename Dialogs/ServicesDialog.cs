@@ -14,7 +14,7 @@ namespace SimpleEchoBot.Dialogs
     using SimpleEchoBot.Helpers;
 
     [Serializable]
-    public class IndustryDialog : IDialog<object>
+    public class ServicesDialog : IDialog<object>
     {
         public async Task StartAsync(IDialogContext context)
         {
@@ -24,53 +24,53 @@ namespace SimpleEchoBot.Dialogs
         public async Task MessageReceivedAsync(IDialogContext context, IAwaitable<IMessageActivity> argument)
         {
             var activity = await argument;
-            var industry = activity.Text;
+            var service = activity.Text;
 
-            if (!string.IsNullOrEmpty(industry))
+            if (!string.IsNullOrEmpty(service))
             {
-                //await context.PostAsync(Resources.IndustryChosen);
-                await FindContactForIndustry(context, industry);
+                //await context.PostAsync(Resources.ServiceChosen);
+                await FindContactForService(context, service);
             }
             else
             {
-                await context.PostAsync(Resources.IndustryChosen);
+                await context.PostAsync(Resources.ServiceChosen);
                 await PromptChoices(context);
             }
         }
 
         private async Task PromptChoices(IDialogContext context)
         {
-            var configuredIndustries = IndustryConfiguration.GetConfiguredIndustries();
+            var configuredServices = ServicesConfiguration.GetConfiguredServices();
             PromptDialog.Choice(
                 context,
                 ProcessChoice,
-                configuredIndustries.Industries.Select(ci => ci.Name),
-                Resources.IndustryQuestion,
+                configuredServices.Services.Select(svc => svc.Name),
+                Resources.ServiceQuestion,
                 Resources.SorryChoose,
                 3);
         }
 
         private async Task ProcessChoice(IDialogContext context, IAwaitable<string> result)
         {
-            var chosenIndustry = await result;
+            var chosenService = await result;
 
             //var cvs = await CVPartnerService.Instance.FindCVsForIndustry(chosenIndustry);
             //var cv = cvs.First(); //TODO: Find consultant with the most experience or other logic
 
-            await FindContactForIndustry(context, chosenIndustry);
+            await FindContactForService(context, chosenService);
         }
 
-        private async Task FindContactForIndustry(IDialogContext context, string industry)
+        private async Task FindContactForService(IDialogContext context, string service)
         {
-            var user = await CVPartnerService.Instance.FindContactForIndustry(industry);
+            var user = await CVPartnerService.Instance.FindContactForService(service);
 
-            await context.PostAsync(string.Format(Resources.IndustryChosen2, industry, user.Name));
-            await PostCVThumbnailCard(context, industry, user);
+            await context.PostAsync(string.Format(Resources.ServiceChosen2, service, user.Name));
+            await PostCVThumbnailCard(context, service, user);
 
             await context.Forward(new ContactDialog(), ResumeAfterContactDialog, user, CancellationToken.None);
         }
 
-        private static async Task PostCVThumbnailCard(IDialogContext context, string chosenIndustry, User user)
+        private static async Task PostCVThumbnailCard(IDialogContext context, string chosenService, User user)
         {
             IMessageActivity message = context.MakeMessage();
             ThumbnailCard cvCard = new ThumbnailCard()

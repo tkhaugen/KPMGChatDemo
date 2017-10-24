@@ -86,9 +86,11 @@
       <HintPath>.\packages\Microsoft.WindowsAzure.ConfigurationManager.3.2.1\lib\net40\Microsoft.WindowsAzure.Configuration.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Newtonsoft.Json, Version=8.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
-      <HintPath>.\packages\Newtonsoft.Json.8.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
-      <Private>True</Private>
+    <Reference Include="Newtonsoft.Json, Version=9.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>packages\Newtonsoft.Json.9.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="SendGrid, Version=9.8.0.0, Culture=neutral, PublicKeyToken=4f047e93159395ca, processorArchitecture=MSIL">
+      <HintPath>packages\Sendgrid.9.9.0\lib\net452\SendGrid.dll</HintPath>
     </Reference>
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="System.IdentityModel.Tokens.Jwt, Version=4.0.40306.1554, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
@@ -135,10 +137,10 @@
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\MessagesController.cs" />
     <Compile Include="Dialogs\ContactDialog.cs" />
-    <Compile Include="Dialogs\FindContactDialog.cs" />
-    <Compile Include="Dialogs\ServiceDialog.cs" />
-    <Compile Include="Dialogs\IndustryDialog.cs" />
+    <Compile Include="Dialogs\ResourcesDialog.cs" />
     <Compile Include="Dialogs\RootDialog.cs" />
+    <Compile Include="Dialogs\ServicesDialog.cs" />
+    <Compile Include="Dialogs\IndustriesDialog.cs" />
     <Compile Include="Dialogs\RootLuisDialog.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -162,7 +164,9 @@
     </Compile>
     <Compile Include="Services\CVPartnerService.cs" />
     <Compile Include="Services\IndustryConfiguration.cs" />
-    <Compile Include="Services\ServiceConfiguration.cs" />
+    <Compile Include="Services\MailConfiguration.cs" />
+    <Compile Include="Services\SendMailService.cs" />
+    <Compile Include="Services\ServicesConfiguration.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />

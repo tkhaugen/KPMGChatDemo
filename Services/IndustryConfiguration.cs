@@ -29,7 +29,7 @@ namespace SimpleEchoBot.Services
 
         public static string[] GetPreferredRoles()
         {
-            return ConfigurationManager.AppSettings["Industry_PreferredRoles"].Split(',');
+            return ConfigurationManager.AppSettings["Industries_PreferredRoles"].Split(',');
         }
 
         private static string ReadFile(string virtualPath)

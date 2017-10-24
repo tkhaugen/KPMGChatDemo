@@ -110,7 +110,7 @@ namespace SimpleEchoBot.Services
             var offices = await GetOffices("no");
 
             // Get the service configuration, which maps offices to services
-            var officeForService = ServiceConfiguration.GetConfiguredServices().Services.FirstOrDefault(s => s.Name.Equals(service, StringComparison.OrdinalIgnoreCase));
+            var officeForService = ServicesConfiguration.GetConfiguredServices().Services.FirstOrDefault(s => s.Name.Equals(service, StringComparison.OrdinalIgnoreCase));
             if (officeForService == null)
                 return new CV[0];
 
@@ -120,7 +120,7 @@ namespace SimpleEchoBot.Services
 
             // Office search string
             var officeIdsString = "&office_ids[]=" + office.Id;
-            var serviceRole = ServiceConfiguration.GetPreferredRoles().First();
+            var serviceRole = ServicesConfiguration.GetPreferredRoles().First();
 
             var cvs = new Dictionary<string, CV>();
             var path = "/api/v3/search?query[0]=" + serviceRole + "&filter_fields[0]=" + officeIdsString + "&size=4&from=0";

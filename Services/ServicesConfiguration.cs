@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
@@ -9,10 +10,9 @@ using Newtonsoft.Json;
 
 namespace SimpleEchoBot.Services
 {
-    using System.Configuration;
     using Models.Configuration;
 
-    public class ServiceConfiguration
+    public class ServicesConfiguration
     {
         private static ConfiguredServices _configuredServices;
 
@@ -29,7 +29,7 @@ namespace SimpleEchoBot.Services
 
         public static string[] GetPreferredRoles()
         {
-            return ConfigurationManager.AppSettings["Service_PreferredRoles"].Split(',');
+            return ConfigurationManager.AppSettings["Services_PreferredRoles"].Split(',');
         }
 
         private static string ReadFile(string virtualPath)

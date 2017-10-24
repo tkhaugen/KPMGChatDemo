@@ -126,6 +126,85 @@
   <data name="ContactQuestion" xml:space="preserve">
     <value>Vil du at {0} skal kontakte deg?</value>
   </data>
+  <data name="EmailReceiptToContactBody" xml:space="preserve">
+    <value>*(Denne e-posten vil bli sendt som en bekreftelse til brukeren som har registrert ønske om å bli kontaktet via KPMG ChatBot. I testperioden sendes den i stedet til konfigurerte mottakere)*
+
+**Hei, {6}**
+
+Vi har registrert ditt ønske om å bli kontaktet av en av være medarbeidere:
+
+**Navn:** {1}
+**Rolle:** {2}
+**Kontor:** {3}
+
+Henvendelsen gjelder: **{0}**.
+
+Dette er kontaktdetaljene vi har registrert for deg:
+
+**Navn:** {6}
+**Firma:** {7}
+**E-postadresse:** {8}
+**Telefonnummer:** {9}
+
+Med vennlig hilsen
+KPMG Chatbot</value>
+  </data>
+  <data name="EmailReceiptToContactSubject" xml:space="preserve">
+    <value>Bekreftelse fra KPMG Chatbot</value>
+  </data>
+  <data name="EmailToConfiguredRecipientsBody" xml:space="preserve">
+    <value>En bruker har, via KPMG chatbot, registrert ønske om å bli kontaktet.
+
+Henvendelsen gjelder: **{0}**.
+
+**Kontaktdetaljer:**
+
+**Navn:** {6}
+**Firma:** {7}
+**E-postadresse:** {8}
+**Telefonnummer:** {9}
+
+Følgende profil ble automatisk hentet fra CV-databasen basert på registrert kompetanse:
+
+**Navn:** {1}
+**Rolle:** {2}
+**Kontor:** {3}
+**E-postadresse:** {4}
+**Telefonnummer:** {5}
+
+En epost har blitt sendt direkte til ham/henne.
+
+Med vennlig hilsen
+KPMG Chatbot</value>
+  </data>
+  <data name="EmailToConfiguredRecipientsSubject" xml:space="preserve">
+    <value>Kontaktforespørsel fra KPMG Chatbot</value>
+  </data>
+  <data name="EmailToUserBody" xml:space="preserve">
+    <value>*(Denne e-posten vil bli sendt til en medarbeider automatisk valgt ut fra CV-databasen basert på registrert kompetanse. I testperioden sendes den i stedet til konfigurerte mottakere)*
+
+**Hei, {1}**
+
+En bruker har, via KPMG chatbot, registrert ønske om å bli kontaktet.
+
+Henvendelsen gjelder: **{0}**.
+
+Din profil ble automatisk hentet fra CV-databasen basert på registrert kompetanse.
+
+Dersom du mener at denne henvendelsen ikke er naturlig å besvare for deg, vær vennlig å sende den videre til rette vedkommende.
+
+### Kontaktdetaljer:
+**Navn:** {6}
+**Firma:** {7}
+**E-postadresse:** {8}
+**Telefonnummer:** {9}
+
+Med vennlig hilsen
+KPMG Chatbot</value>
+  </data>
+  <data name="EmailToUserSubject" xml:space="preserve">
+    <value>Kontaktforespørsel fra KPMG Chatbot</value>
+  </data>
   <data name="FallbackQuestion" xml:space="preserve">
     <value>Jeg er ikke så smart at jeg forstår alt ennå, men jeg er flink til å hjelpe deg med Ressurs, Bransje eller Tjeneste.</value>
   </data>

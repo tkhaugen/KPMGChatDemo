@@ -14,7 +14,7 @@ namespace SimpleEchoBot.Dialogs
     using SimpleEchoBot.Helpers;
 
     [Serializable]
-    public class FindContactDialog : IDialog<object>
+    public class ResourcesDialog : IDialog<object>
     {
         public async Task StartAsync(IDialogContext context)
         {
