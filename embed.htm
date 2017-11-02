@@ -1,0 +1,50 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8" />
+    <title>KPMGChatDemo</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <style>
+        html, body {
+            height: 100%;
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+        }
+    </style>
+    <link href="/css/botchat.css" rel="stylesheet" />
+    <link href="/css/botchat-fullwindow.css" rel="stylesheet" />
+</head>
+<body>
+    <div id="BotChatElement"></div>
+    <script src="/scripts/botchat.js"></script>
+    <script>
+        var model = {
+  "userId": "EAn7yo506G0",
+  "userName": "You",
+  "botId": "KPMGChatDemo",
+  "botIconUrl": "https://bot-framework.azureedge.net/bot-icons-v1/bot-framework-default-7.png",
+  "botName": "KPMGChatDemo",
+  "secret": "KDDObhbO404.cwA.KOI.VOmmDfZVjn7nuOBYu1eo4_QNGpsY1GNuLzS5nN2AYmw",
+  "iconUrl": "https://bot-framework.azureedge.net/bot-icons-v1/bot-framework-default-7.png",
+  "directLineUrl": "https://webchat.botframework.com/v3/directline",
+  "webSocketEnabled": "true",
+  "speechTokenEndpoint": "https://api.botframework.com/v3/speechtoken"
+};
+    </script>
+    <script>
+        BotChat.App({
+            directLine: {
+                secret: model.secret,
+                token: model.token,
+                domain: model.directLineUrl,
+                webSocket: true
+            },
+            user: { id: model.userId, name: model.userName },
+            bot: { id: model.botId, name: model.botName },
+            resize: 'window'
+        }, document.getElementById("BotChatElement"));
+
+    </script>
+</body>
+</html>
