@@ -97,10 +97,28 @@ namespace SimpleEchoBot.Services
             return cvs.Values.ToList();
         }
 
+        public async Task<string> GetConfiguredContactForIndustry(string industry)
+        {
+            // Get the industry configuration, return the configured contact if any
+            var industryConfig = IndustryConfiguration.GetConfiguredIndustries().Industries.FirstOrDefault(i => i.Name == industry);
+            if (industryConfig == null)
+                return null;
+            return industryConfig.Contact;
+        }
+
         public async Task<User> FindContactForIndustry(string industry)
         {
+            var email = await GetConfiguredContactForIndustry(industry);
+            if (email != null)
+            {
+                return await GetUser(email);
+            }
+
             var cvs = await FindCVsForIndustry(industry);
             var cv = cvs.FirstOrDefault();
+            if (cv == null || cv.Email == null)
+                return null;
+
             return await GetUser(cv.Email);
         }
 
@@ -136,10 +154,28 @@ namespace SimpleEchoBot.Services
             return cvs.Values.ToList();
         }
 
+        public async Task<string> GetConfiguredContactForService(string service)
+        {
+            // Get the services configuration, return the configured contact if any
+            var serviceConfig = ServicesConfiguration.GetConfiguredServices().Services.FirstOrDefault(i => i.Name == service);
+            if (serviceConfig == null)
+                return null;
+            return serviceConfig.Contact;
+        }
+
         public async Task<User> FindContactForService(string service)
         {
+            var email = await GetConfiguredContactForService(service);
+            if (email != null)
+            {
+                return await GetUser(email);
+            }
+
             var cvs = await FindCVsForService(service);
             var cv = cvs.FirstOrDefault();
+            if (cv == null || cv.Email == null)
+                return null;
+
             return await GetUser(cv.Email);
         }
 

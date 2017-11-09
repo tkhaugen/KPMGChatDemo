@@ -2,23 +2,28 @@
   "services": [
     {
       "name": "Revisjon og bekreftelser",
-      "office": "Audit"
+      "office": "Audit",
+      "contact": "lars.inge.pettersen@kpmg.no"
     },
     {
       "name": "Skatt og avgift",
-      "office": "LAW"
+      "office": "LAW",
+      "contact": "per.ivar.skinstad@kpmg.no"
     },
     {
       "name": "Rådgivning",
-      "office": "Advisory"
+      "office": "Advisory",
+      "contact": "rune.skjelvan@kpmg.no"
     },
     {
       "name": "Regnskap- og økonomitjenester",
-      "office": "Accounting"
+      "office": "Accounting",
+      "contact": "marius.berg@kpmg.no"
     },
     {
       "name": "Advokattjenester",
-      "office": "LAW"
+      "office": "LAW",
+      "contact": "per.ivar.skinstad@kpmg.no"
     }
   ]
 }

@@ -9,7 +9,8 @@
         "Finance",
         "Financial services",
         "Financial Services"
-      ]
+      ],
+      "contact": "erik.osebak@kpmg.no"
     },
     {
       "name": "Energi",
@@ -17,7 +18,8 @@
         "Energi",
         "Energy",
         "Power & Utilities"
-      ]
+      ],
+      "contact": "geir.moen@kpmg.no"
     },
     {
       "name": "Helse",
@@ -28,7 +30,8 @@
         "Health sector",
         "Healthcare",
         "Healthcare, public/private cooperation"
-      ]
+      ],
+      "contact": "wencke.vandermeijden@kpmg.no"
     },
     {
       "name": "Olje og gass",
@@ -38,21 +41,24 @@
         "Oil & Gas",
         "Oil and gas",
         "Oil and Gas"
-      ]
+      ],
+      "contact": "mona.larsen@kpmg.no"
     },
     {
       "name": "Sjømat",
       "variants": [
         "Sjømat",
         "Food and drinks industry"
-      ]
+      ],
+      "contact": "trine.romuld@kpmg.no"
     },
     {
       "name": "Bil",
       "variants": [
         "Bil",
         "Car industry"
-      ]
+      ],
+      "contact": "john.thomas.sorhaug@kpmg.no"
     },
     {
       "name": "Handel og konsumvarer",
@@ -60,7 +66,8 @@
         "Handel og konsumvarer",
         "Retail",
         "Retail and wholesale trade"
-      ]
+      ],
+      "contact": "oivind.karlsen@kpmg.no"
     },
     {
       "name": "Offentlig sektor",
@@ -73,7 +80,8 @@
         "Civil society",
         "Development Aid",
         "Statlig/offentlig"
-      ]
+      ],
+      "contact": "lars.torgersen@kpmg.no"
     },
     {
       "name": "Industri",
@@ -86,7 +94,8 @@
         "Engineering Consultancy",
         "Mineral/mining",
         "Service industry"
-      ]
+      ],
+      "contact": "thore.kleppen@kpmg.no"
     },
     {
       "name": "Teknologi, media og telekommunikasjon",
@@ -97,7 +106,8 @@
         "Telecom",
         "Telecommunications",
         "Advertising/PR"
-      ]
+      ],
+      "contact": "kjetil.kristoffersen@kpmg.no"
     },
     {
       "name": "Transport og logistikk",
@@ -106,7 +116,8 @@
         "Transportation and logistics",
         "Air transport",
         "Public, Transportation"
-      ]
+      ],
+      "contact": "thore.kleppen@kpmg.no"
     },
     {
       "name": "Bygg, anlegg og eiendom",
@@ -116,7 +127,8 @@
         "Building and Construction Industry",
         "Construction",
         "Real estate"
-      ]
+      ],
+      "contact": "svein.wiig@kpmg.no"
     },
     {
       "name": "Private Equity",
@@ -125,13 +137,15 @@
         "Privat",
         "Private",
         "NGO"
-      ]
+      ],
+      "contact": "torbjorn.hansen@kpmg.no"
     },
     {
       "name": "Shipping",
       "variants": [
         "Shipping"
-      ]
+      ],
+      "contact": "per.daniel.nyberg@kpmg.no"
     }
   ]
 }

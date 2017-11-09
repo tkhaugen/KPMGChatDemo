@@ -9,10 +9,4 @@ namespace SimpleEchoBot.Models.Configuration
     {
         public Service[] Services { get; set; }
     }
-
-    public class Service
-    {
-        public string Name { get; set; }
-        public string Office { get; set; }
-    }
 }
